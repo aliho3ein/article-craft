@@ -1,0 +1,53 @@
+.aboutMain {
+  .aboutParagraph {
+    width: 80%;
+    height: auto;
+    min-width: 300px;
+    margin: 20vh auto;
+    font-size: 1.4em;
+    color: var(--primary-color);
+
+    &:after {
+      content: "";
+      height: 1.2rem;
+      width: 5px;
+      background-color: var(--secondary-color);
+      display: inline-block;
+      transform: translateY(2px);
+      animation: blinker 500ms infinite;
+    }
+
+    &:before {
+      content: "";
+      display: inline-block;
+      height: 60px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: top / 45px url("./../../../public/assets/image/myPic.png")
+        no-repeat var(--primary-color);
+      transform: scaleX(-1) translate(8px, -1px);
+      animation: movement 5s ease-in-out infinite alternate;
+    }
+  }
+}
+
+@keyframes blinker {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes movement {
+  from {
+    transform: scaleX(-1) translate(12px, -5px);
+  }
+  to {
+    transform: scaleX(-1) translate(5px, -1px);
+  }
+}

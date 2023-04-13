@@ -1,0 +1,19 @@
+@import "_variable.scss";
+
+:root {
+  --bg-color: #fff;
+  --primary-color: #333;
+  --secondary-color: #999;
+  --third-color: #ccc;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: var(--bg-color);
+}
+
+main {
+  min-height: 100vh;
+  width: 80%;
+  margin-inline: auto;
+}

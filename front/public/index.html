@@ -4,7 +4,124 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>ArticleCraft</title>
+    <link rel="stylesheet" href="../src/styles/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
-  <body></body>
+  <body>
+    <nav>
+      <ul>
+        <li class="nav-active">aboutMe</li>
+        <li>myWork</li>
+        <li>shopCenter</li>
+        <li>contactMe</li>
+      </ul>
+      <div id="logo">
+        <img src="../public/assets/image/logoooo.png" alt="logo" />
+      </div>
+      <div id="nav-mode">
+        <i class="fa-solid fa-moon"></i>
+        <div onclick="switchMode()" id="switch">
+          <div id="switch-circle"></div>
+        </div>
+        <i class="fa-solid fa-sun"></i>
+        <!-- <FontAwesomeIcon icon="fa-solid fa-moon" /> 
+        <FontAwesomeIcon icon="fa-solid fa-sun" />
+        -->
+      </div>
+    </nav>
+    <header>
+      <h1 id="head-title">ArticleCraft</h1>
+
+      <div id="head-social">
+        <a
+          href="https://github.com/aliho3ein"
+          target="_blank"
+          title="Github"
+          rel="noopener noreferrer"
+        >
+          <i class="fa-brands fa-square-github">
+            <!-- <FontAwesomeIcon icon="fa-brands fa-square-github" /> -->
+          </i></a
+        >
+
+        <a
+          href="https://www.instagram.com/aliho3.ein/"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Instagram"
+        >
+          <i class="fa-brands fa-instagram"></i>
+          <!-- <FontAwesomeIcon icon="fa-brands fa-instagram" /> -->
+        </a>
+
+        <a
+          href="https://www.linkedin.com/in/aliho3ein/"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Linkedin"
+        >
+          <i class="fa-brands fa-linkedin"></i>
+          <!-- <FontAwesomeIcon icon="fa-brands fa-linkedin" /> -->
+        </a>
+      </div>
+    </header>
+    <main></main>
+    <footer>
+      <span>copyright &copy; ArticleCraft all rights reserved</span>
+      <span>powered by aliho3ein</span>
+    </footer>
+  </body>
+  <script>
+    function titleEffect() {
+      const area = document.querySelector("header");
+      const text = area.querySelector("h1");
+
+      const walkArea = 10; // PX
+
+      area.addEventListener("mousemove", function (event) {
+        let { offsetWidth: w, offsetHeight: h } = area;
+
+        let { offsetX: x, offsetY: y } = event;
+        x += event.target?.offsetLeft;
+        y += event.target?.offsetTop;
+
+        const xWalk = Math.round((x / w) * walkArea - walkArea / 2);
+        const yWalk = Math.round((y / h) * walkArea - walkArea / 2);
+
+        text.style.textShadow = `
+  ${xWalk * -1}px ${yWalk}px 7px rgba(255, 0, 0, 0.3),
+  ${yWalk}px ${xWalk * -1}px 8px rgba(8, 240, 6, 0.3),
+  ${xWalk}px ${yWalk * -1}px 4px rgba(00, 00, 255, 0.4),
+  ${yWalk * -1}px ${xWalk}px 5px rgba(255, 0, 258, 0.2)`;
+      });
+    }
+    titleEffect();
+
+    function titleMovement(num) {
+      const text = document.getElementById("head-title");
+      text.style.transform = `translateY(${num}px)`;
+    }
+
+    function bcImageEffect() {
+      window.addEventListener("scroll", async (e) => {
+        const top = await Math.floor(window.scrollY / 15);
+        titleMovement(top);
+      });
+    }
+
+    bcImageEffect();
+
+    function switchMode() {
+      document
+        .getElementById("switch-circle")
+        .classList.toggle("darkMode-active");
+    }
+  </script>
 </html>
