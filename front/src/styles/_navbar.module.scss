@@ -37,6 +37,14 @@
       cursor: pointer;
       padding: 3px 8px;
 
+      a {
+        all: unset;
+
+        &:active {
+          color: red;
+        }
+      }
+
       &:first-child {
         margin-left: 100px;
       }

@@ -1,7 +1,19 @@
+import Head from "next/head";
 import { FC } from "react";
+import Layout from "../layout";
+import { NextPageWithLayout } from "../models/interfaces";
 
-const Contact: FC = () => {
-  return <h2>Contact page</h2>;
+const Contact: NextPageWithLayout = () => {
+  return (
+    <>
+      <Head>
+        <title>ContactMe</title>
+      </Head>
+      <main>Contact page</main>
+    </>
+  );
 };
 
 export default Contact;
+
+Contact.getLayout = (page) => <Layout>{page}</Layout>;

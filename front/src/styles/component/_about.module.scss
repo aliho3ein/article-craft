@@ -1,6 +1,6 @@
 .aboutMain {
   .aboutParagraph {
-    width: 80%;
+    width: 60%;
     height: auto;
     min-width: 300px;
     margin: 20vh auto;
@@ -23,8 +23,8 @@
       height: 60px;
       aspect-ratio: 1;
       border-radius: 50%;
-      background: top / 45px url("./../../../public/assets/image/myPic.png")
-        no-repeat var(--primary-color);
+      // background: top / 45px url("./../../../public/assets/image/myPic.png")
+      background: top / 150% var(--userImg) no-repeat;
       transform: scaleX(-1) translate(8px, -1px);
       animation: movement 5s ease-in-out infinite alternate;
     }

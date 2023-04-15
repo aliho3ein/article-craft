@@ -48,7 +48,7 @@ const Header: FC = () => {
       `,
         }}
       >
-        ArticleCraft
+        articleCraft
       </h1>
 
       {/* head social */}

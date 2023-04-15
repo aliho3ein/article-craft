@@ -1,10 +1,21 @@
 @import "_variable.scss";
 
 :root {
+  /**DarkMode */
+  // --bg-color: #444;
+  // --primary-color: #eee;
+  // --secondary-color: #aaa;
+  // --third-color: #777;
+  //--quaternary-color: #555;
+  // --head-bg: url("../../public/assets/image/dark.svg");
+
+  /**lightMode */
   --bg-color: #fff;
   --primary-color: #333;
   --secondary-color: #999;
   --third-color: #ccc;
+  --quaternary-color: #eee;
+  --head-bg: url("../../public/assets/image/light.svg");
 }
 
 body {

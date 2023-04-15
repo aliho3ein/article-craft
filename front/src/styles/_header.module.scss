@@ -3,10 +3,11 @@
   width: 110vw;
   margin-left: -5vw;
   border-radius: 0% 0% 70% 70% / 0% 0% 30% 30%;
-  background: bottom url("../../public/assets/image/patternpad(1).svg");
+  background: bottom var(--head-bg);
   box-shadow: 0 0 20px var(--third-color);
   text-align: center;
   position: relative;
+  color: rgb(153, 153, 153);
 
   #headTitle {
     position: absolute;
