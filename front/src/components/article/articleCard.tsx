@@ -1,14 +1,20 @@
 import { faHeart, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 /** */
 import style from "src/styles/component/_article.module.scss";
 import { articleType } from "../../models/interfaces";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const ArticleCard: FC<articleType> = ({ value }) => {
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   return (
-    <div className={style.articleCard}>
+    <div className={style.articleCard} data-aos="fade-up">
       <div
         className={style.articleImg}
         style={{ ["--bgImg" as string]: `url(${value.img})` }}
