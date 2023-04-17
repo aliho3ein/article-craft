@@ -16,7 +16,7 @@
     top: 0;
     bottom: 0;
     margin: auto;
-    background-color: #eee;
+    background-color: var(--quaternary-color);
     border-radius: 49% 51% 50% 50% / 30% 30% 70% 70%;
     animation: logoShape 30s infinite;
 
@@ -36,6 +36,7 @@
       color: var(--primary-color);
       cursor: pointer;
       padding: 3px 8px;
+      border-bottom: 1px solid transparent;
 
       a {
         all: unset;
@@ -46,7 +47,7 @@
       }
 
       &:hover {
-        border-bottom: 1px solid var(--secondary-color);
+        border-color: var(--secondary-color);
       }
     }
 
@@ -67,13 +68,12 @@
     font-size: 1.1rem;
 
     > div {
-      height: 17px;
+      height: 18px;
       width: 30px;
       border: 1px solid var(--secondary-color);
       border-radius: 10px;
       cursor: pointer;
       position: relative;
-      // color:rgb(13, 231, 231);
 
       div {
         height: 13px;
@@ -84,7 +84,7 @@
         top: 0;
         bottom: 0;
         margin: auto;
-        left: 14px;
+        left: 13px;
         transition: left 300ms;
       }
 

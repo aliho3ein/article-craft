@@ -195,14 +195,18 @@ export default function Layout({ children }: props) {
         id: "1",
         name: "ali",
         status: "some lorem text etc",
+        skills:
+          "html,css,sass,tailwind,bootstrap,javascript,react,next,node,typescript,mongo,express,jquery",
         bio: `Hi guys, my name is Ali and I'm a Web Developer. I write articles about what I love and what interests me, the truth is that it's not easy to be motivated when your job is boring. You are tired after work, you go home, you eat with your family, do some stuff on the internet like checking Facebook or playing games but nothing really matters except for work. There are many articles like this but I want to make mine better than others:)`,
         img: "https://as1.ftcdn.net/v2/jpg/03/05/25/28/1000_F_305252832_jZQnjv3kZd0HfMzUB2BaalhTiZzQo7cN.jpg",
       },
       {
         id: "2",
-        name: "abas",
+        name: "abbas",
         status: "I'm a Web Developer. I write articles ",
-        bio: `Hi. I'm abas, and I'm a Web Developer who loves to code in my free time. I started learning how to code after dropping out of college because I was inspired by all the cool projects the students were working on. When others were sleeping, I was up late browsing reddit and discovering new sites where I could learn new skills. Eventually, due to my hard work, my dream of becoming a Web Developer came true! Today, I spend most of my time helping others make the most out of their skills.`,
+        skills:
+          "html,css,sass,tailwind,bootstrap,javascript,vue,react,next,node,typescript,mongo,express,python,php,wordpress",
+        bio: `Hi. I'm abbas, and I'm a Web Developer who loves to code in my free time. I started learning how to code after dropping out of college because I was inspired by all the cool projects the students were working on. When others were sleeping, I was up late browsing reddit and discovering new sites where I could learn new skills. Eventually, due to my hard work, my dream of becoming a Web Developer came true! Today, I spend most of my time helping others make the most out of their skills.`,
         img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWHrcgZGVVA--k9WZociwHLjCH4wI_oYkMkw&usqp=CAU",
       },
     ],

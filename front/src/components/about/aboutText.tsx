@@ -1,9 +1,9 @@
 import { FC, useEffect, useRef } from "react";
 import style from "src/styles/component/_about.module.scss";
+import Skill from "../skillCard";
 
 const AboutText: FC<any> = ({ data }) => {
   const paragraphRef = useRef<HTMLHeadingElement>(null);
-  const aboutRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     /** start typing if scroll till paragraph */
@@ -20,7 +20,6 @@ const AboutText: FC<any> = ({ data }) => {
     return () => {
       observer.disconnect();
     };
-    typeText(data.bio);
   }, []);
 
   const typeText = (txt: any) => {
@@ -36,14 +35,25 @@ const AboutText: FC<any> = ({ data }) => {
       }
     }, 15);
   };
+
+  const skill = data.skills.split(",").map((item: string, index: number) => {
+    return <Skill key={index} value={item} />;
+  });
+
   return (
-    <p
-      className={style.aboutParagraph}
-      ref={paragraphRef}
-      style={{
-        ["--userImg" as any]: `url(${data.img})`,
-      }}
-    ></p>
+    <div className={style.aboutCard}>
+      <p
+        className={style.aboutParagraph}
+        ref={paragraphRef}
+        style={{
+          ["--userImg" as any]: `url(${data.img})`,
+        }}
+      ></p>
+      <div className={style.info}>
+        <span>skills and expertise :</span>
+        {skill}
+      </div>
+    </div>
   );
 };
 

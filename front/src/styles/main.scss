@@ -2,20 +2,15 @@
 
 :root {
   /**DarkMode */
-  // --bg-color: #444;
-  // --primary-color: #eee;
-  // --secondary-color: #aaa;
-  // --third-color: #777;
-  //--quaternary-color: #555;
-  // --head-bg: url("../../public/assets/image/dark.svg");
 
   /**lightMode */
   --bg-color: #fff;
   --primary-color: #333;
-  --secondary-color: #999;
-  --third-color: #ccc;
+  --secondary-color: #999999;
+  --third-color: #cccccc;
   --quaternary-color: #eee;
-  --head-bg: url("../../public/assets/image/light.svg");
+  --head-bg: url("../assets/image/light.svg");
+  --contact-bg: url("../assets/image/lightCon.svg");
 }
 
 body {
@@ -24,7 +19,21 @@ body {
 }
 
 main {
-  min-height: 100vh;
+  min-height: calc(100vh - 50px);
   width: 80%;
   margin-inline: auto;
+}
+
+/** global skill styles */
+.skillCard {
+  user-select: none;
+  padding: 3px 10px;
+  background-color: #aaa;
+  border-radius: 5px;
+  color: var(--bg-color);
+  text-transform: capitalize;
+
+  .icon {
+    margin-right: 5px;
+  }
 }

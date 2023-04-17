@@ -1,0 +1,10 @@
+.shopMain {
+  display: grid;
+  place-content: center;
+
+  img {
+    width: 30vw;
+    min-width: 300px;
+    filter: grayscale(100%);
+  }
+}

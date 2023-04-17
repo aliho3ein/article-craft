@@ -32,3 +32,7 @@ export interface workType {
   };
   index: number;
 }
+
+export interface skillType {
+  value: string | null;
+}
