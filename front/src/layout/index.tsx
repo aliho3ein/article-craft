@@ -14,14 +14,14 @@ export default function Layout({ children }: props) {
     articles: [
       {
         id: "1",
-        title: "10 important library for Node",
+        title: "9 important library for Node",
         desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit impedit sed reiciendis? Magnam atque nam, est earum harum mollitia et, magni aspernatur esse incidunt tempore suscipit soluta sit quasi laborum!",
         img: "https://static.roocket.ir/images/cover/2023/4/7/tBHi0TbgCMWaGuLDHCZGs6Dxc9jB3xDewa7aTUI8.png",
         view: 45,
         like: 12,
         date: "15.04.2022",
         userId: "1",
-        hashTag: "react",
+        hashTag: "react , js",
       },
       {
         id: "2",

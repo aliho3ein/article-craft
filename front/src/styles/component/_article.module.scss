@@ -217,10 +217,17 @@
       padding: 0 50px 50px;
     }
 
+    .tags {
+      width: 90%;
+      margin-top: auto;
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+
     .info {
       width: 90%;
       display: flex;
-      margin-top: auto;
       padding-block: 20px;
       border-top: 1px solid #fff;
       user-select: none;

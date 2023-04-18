@@ -1,13 +1,21 @@
 import Head from "next/head";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import MainContext from "../../context/mainContext";
 import ArticleCard from "../../components/article/articleCard";
 import Layout from "../../layout";
 import { NextPageWithLayout } from "../../models/interfaces";
 import style from "src/styles/component/_article.module.scss";
+import axios from "axios";
 
-const Article: NextPageWithLayout = () => {
+const Article: NextPageWithLayout<any> = () => {
   const { articles } = useContext(MainContext);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/articleCraft/api/article")
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log("err"));
+  }, []);
 
   /** */
   const result = articles.map((article, index) => {

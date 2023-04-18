@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Layout from "../../layout";
 import { NextPageWithLayout } from "../../models/interfaces";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import MainContext from "../../context/mainContext";
 /** */
 import style from "src/styles/component/_article.module.scss";
@@ -15,16 +15,28 @@ import {
   faUser,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
+import Skill from "../../components/skillCard";
+import { GetServerSideProps } from "next";
 
 /** */
-const ArticleID: NextPageWithLayout = () => {
-  const { articles, users } = useContext(MainContext);
+const ArticleID: NextPageWithLayout<any> = ({ article }) => {
+  const { articles } = useContext(MainContext);
 
   /** get article's ID */
   const { id } = useRouter().query;
 
-  const article = articles.find((article) => article.id === id);
-  const user = users.find((user) => user.id === article?.userId);
+  const user = {
+    id: "1",
+    name: "ali",
+    status: "some lorem text etc",
+    skills:
+      "html,css,sass,tailwind,bootstrap,javascript,react,next,node,typescript,mongo,express,jquery",
+    bio: `Hi guys, my name is Ali and I'm a Web Developer. I write articles about what I love and what interests me, the truth is that it's not easy to be motivated when your job is boring. You are tired after work, you go home, you eat with your family, do some stuff on the internet like checking Facebook or playing games but nothing really matters except for work. There are many articles like this but I want to make mine better than others:)`,
+    img: "https://as1.ftcdn.net/v2/jpg/03/05/25/28/1000_F_305252832_jZQnjv3kZd0HfMzUB2BaalhTiZzQo7cN.jpg",
+  };
+
+  // const article = articles.find((article) => article.id === id);
+  // const user = users.find((user) => user.id === article?.userId);
 
   /** get related articles */
   const hashTg = article?.hashTag.split(",");
@@ -43,6 +55,11 @@ const ArticleID: NextPageWithLayout = () => {
     .slice(0, 5)
     .map((tag, index) => <SuggestCard key={index} value={tag} />);
 
+  /** tags */
+  const tags = article?.hashTag
+    .split(",")
+    .map((tag: string, index: number) => <Skill value={tag} key={index} />);
+
   return (
     <>
       <Head>
@@ -57,6 +74,7 @@ const ArticleID: NextPageWithLayout = () => {
           ></div>
           <h2>{article?.title}</h2>
           <p>{article?.desc}</p>
+          <div className={style.tags}>Tags : {tags}</div>
           <div className={style.info}>
             <span>{article?.date}</span>
             <span>
@@ -109,3 +127,19 @@ const ArticleID: NextPageWithLayout = () => {
 export default ArticleID;
 
 ArticleID.getLayout = (page) => <Layout>{page}</Layout>;
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const { id } = params!;
+
+  const data = await fetch(
+    `http://localhost:5000/articleCraft/api/article/${id}`
+  );
+
+  const article = await data.json();
+
+  return {
+    props: {
+      article,
+    },
+  };
+};
