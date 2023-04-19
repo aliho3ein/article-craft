@@ -29,22 +29,22 @@
   ul {
     display: flex;
     list-style: none;
-    gap: 40px;
+    gap: 50px;
     font-size: 1.1rem;
+
+    a {
+      all: unset;
+
+      &:first-child {
+        margin-left: 50px;
+      }
+    }
 
     li {
       color: var(--primary-color);
       cursor: pointer;
-      padding: 3px 8px;
+      padding: 5px;
       border-bottom: 1px solid transparent;
-
-      a {
-        all: unset;
-      }
-
-      &:first-child {
-        margin-left: 100px;
-      }
 
       &:hover {
         border-color: var(--secondary-color);

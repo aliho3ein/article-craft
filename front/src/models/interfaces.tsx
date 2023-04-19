@@ -36,3 +36,19 @@ export interface workType {
 export interface skillType {
   value: string | null;
 }
+
+export interface formType {
+  form?: string;
+  data?: {
+    title?: string;
+    des?: string;
+    link?: string;
+    img?: string;
+    hashTag?: string;
+    name?: string;
+    bio?: string;
+    skills?: string;
+    status?: string;
+    price?: number;
+  };
+}
