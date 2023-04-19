@@ -50,22 +50,26 @@ const Bar: FC = () => {
   return (
     <nav id={style.nav}>
       <ul>
-        <li>
-          <Link href="/">aboutMe</Link>
-        </li>
-        <li>
-          <Link href="/article">myArticle</Link>
-        </li>
-        <li>
-          <Link href="/shop">shopCenter </Link>
-        </li>
-        <li>
-          <Link href="/work">myWork</Link>
-        </li>
+        <Link href="/">
+          <li>aboutMe</li>
+        </Link>
+        <Link href="/article">
+          <li>myArticle</li>
+        </Link>
+        <Link href="/shop">
+          <li>shopCenter</li>
+        </Link>
+        <Link href="/work">
+          <li>myWork</li>
+        </Link>
 
-        <li>
-          <Link href="/contact">contactMe</Link>
-        </li>
+        <Link href="/contact">
+          <li>contactMe</li>
+        </Link>
+
+        <Link href="/cms">
+          <li>portal</li>
+        </Link>
       </ul>
       <div id={style.logo}>
         <img

@@ -14,18 +14,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /** middleware */
-app.use((req, res, next) => {
-  cors({
-    origin: "http://localhost:3000",
-  });
-  next();
+// app.use((req, res, next) => {
+//   cors({
+//     origin: "http://localhost:3000",
+//   });
+//   next();
+// });
+
+const corses = cors({
+  origin: "http://localhost:3000",
 });
 
 /**Pages */
-app.use("/articleCraft/api/article", articlePage);
-app.use("/shop", shopPage);
-app.use("/work", workPage);
-app.use("/contact", contact);
+app.use("/articleCraft/api/article", corses, articlePage);
+app.use("/articleCraft/api/shop", shopPage);
+app.use("/articleCraft/api/work", workPage);
+app.use("/articleCraft/api/contact", contact);
 
 /** Listener */
 app.listen(5000, () => {

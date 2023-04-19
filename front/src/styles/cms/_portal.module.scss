@@ -1,0 +1,84 @@
+.cmsMain {
+  min-height: calc(100vh - 50px);
+  padding-block: 150px;
+  background: center / contain var(--contact-bg) no-repeat;
+
+  nav {
+    min-height: 800px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 100px;
+
+    .navCard {
+      height: 250px;
+      width: 20%;
+      min-width: 250px;
+      background-color: rgba(#999, 0.7);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      position: relative;
+
+      .addBtn {
+        height: 50px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        font-size: 1.4rem;
+        color: var(--bg-color);
+        background: linear-gradient(
+          to bottom left,
+          var(--quaternary-color),
+          var(--secondary-color)
+        );
+        box-shadow: 0 0 8px var(--secondary-color);
+
+        position: absolute;
+        display: grid;
+        place-content: center;
+        transition: all 300ms;
+        left: 0;
+        right: 0;
+        top: 50px;
+        margin-inline: auto;
+      }
+
+      &:first-child .img {
+        --imgNr: url("https://cdn.dribbble.com/users/261966/screenshots/8301697/gocomm_prancheta_1.png");
+      }
+      &:nth-child(2) .img {
+        --imgNr: url("https://img.freepik.com/free-vector/ecommerce-web-page-concept-illustration_114360-8204.jpg?w=2000");
+      }
+      &:nth-child(3) .img {
+        --imgNr: url("https://bsscommerce.com/shopify/wp-content/uploads/2021/10/top-100-best-Shopify-SEO-apps-2022-collection.jpg");
+      }
+      &:nth-child(4) .img {
+        --imgNr: url("https://sirv.sirv.com/blog/image%20seo/2456071.png");
+      }
+
+      .img {
+        width: 90%;
+        height: 150px;
+        margin: 20px auto;
+        border-radius: 8px;
+        background: center / contain var(--imgNr);
+        filter: grayscale(80%);
+        transition: all 300ms;
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      &:hover {
+        .img {
+          filter: grayscale(0%);
+        }
+        .addBtn {
+          top: (-40px);
+        }
+      }
+    }
+  }
+}
