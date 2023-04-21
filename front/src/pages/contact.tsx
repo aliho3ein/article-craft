@@ -23,7 +23,7 @@ const Contact: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>ContactMe</title>
+        <title>contactMe</title>
       </Head>
       <main className={style.contactMain}>
         <section className={style.contactArea}>

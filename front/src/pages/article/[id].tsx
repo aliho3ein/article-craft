@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Layout from "../../layout";
 import { NextPageWithLayout } from "../../models/interfaces";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import MainContext from "../../context/mainContext";
 /** */
 import style from "src/styles/component/_article.module.scss";

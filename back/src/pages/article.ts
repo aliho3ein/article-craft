@@ -4,16 +4,27 @@ import models from "./../module";
 
 router.get("/", async (req: Request, res: Response) => {
   const data = await models.article.find({});
-  res.json(data);
+  res.status(200).json(data);
 });
 
 router.get("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
-  // const data = await models.article.findById(id);
-  console.log(id);
+  const data = await models.article.findById(id);
+  console.log(data);
 
-  const data = await models.article.findById("643e4c2671b3bbe62d2e682f");
-  res.json(data);
+  res.status(200).json(data);
+});
+
+router.post("/", (req, res) => {
+  models.article
+    .create({
+      ...req.body,
+      userId: "1",
+    })
+    .then(() => {
+      res.status(201).send();
+    })
+    .catch((err) => res.status(500).send(err));
 });
 
 export default router;

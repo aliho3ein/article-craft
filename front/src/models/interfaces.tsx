@@ -19,6 +19,17 @@ export interface articleType {
   };
 }
 
+export interface article {
+  id: string;
+  title: string;
+  desc: string;
+  img: string;
+  view: number;
+  like: number;
+  date: string;
+  userId: string;
+}
+
 export interface workType {
   value: {
     id: string;

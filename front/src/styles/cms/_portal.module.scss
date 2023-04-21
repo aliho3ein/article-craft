@@ -1,5 +1,4 @@
 .cmsMain {
-  min-height: calc(100vh - 50px);
   padding-block: 150px;
   background: center / contain var(--contact-bg) no-repeat;
 
@@ -81,4 +80,12 @@
       }
     }
   }
+}
+
+.categoryMain {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-block: 200px;
+  color: var(--primary-color);
 }

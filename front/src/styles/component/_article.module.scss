@@ -263,3 +263,22 @@
     }
   }
 }
+
+/***************** manage ArticleCard *******************/
+
+.articleCard {
+  height: 100px;
+  width: 80%;
+  border: 1px solid var(--third-color);
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  margin-top: 50px;
+
+  .cardHeader {
+    height: 100%;
+    aspect-ratio: 1;
+    background: center / contain var(--bgImg);
+  }
+}
