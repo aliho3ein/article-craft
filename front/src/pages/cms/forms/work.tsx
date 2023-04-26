@@ -1,13 +1,34 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import style from "../../../styles/cms/_form.module.scss";
 import Layout from "../../../layout";
 import { NextPageWithLayout } from "../../../models/interfaces";
 import instance from "../../../api/instance";
 import { useRouter } from "next/router";
+import MainContext from "../../../context/mainContext";
+import { addDataToDB, updateDataInDB } from "../../../actions/apiRequest";
 
 const WorkForm: NextPageWithLayout = () => {
   const router = useRouter();
+  const { ID } = router.query;
+  const { state, dispatch } = useContext(MainContext);
+
+  useEffect(() => {
+    ID && getDataForEdit();
+  }, [ID]);
+
+  const getDataForEdit = () => {
+    const data: any = state!.work.find((item) => {
+      return item._id === ID;
+    });
+
+    setInput({
+      title: data.title,
+      desc: data.desc,
+      img: data.img,
+      link: data.link,
+    });
+  };
 
   const [input, setInput] = useState({
     title: "",
@@ -18,13 +39,29 @@ const WorkForm: NextPageWithLayout = () => {
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    console.log(input);
-    instance
-      .post("/work", input)
-      .then((res) => {
-        res.status == 201 && router.push("/cms");
-      })
-      .catch((err) => console.log("err", err.status));
+    ID
+      ? updateDataInDB("work", ID, input, getResult)
+      : addDataToDB("work", input, getResult);
+  };
+
+  const getResult = (data: object) => {
+    ID
+      ? dispatch!({
+          type: "UPDATE_DATA",
+          payload: {
+            category: "work",
+            data,
+          },
+        })
+      : dispatch!({
+          type: "ADD_DATA",
+          payload: {
+            category: "work",
+            data,
+          },
+        });
+
+    router.push("/cms/category?key=work");
   };
 
   return (

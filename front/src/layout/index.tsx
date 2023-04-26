@@ -22,6 +22,7 @@ export default function Layout({ children }: props) {
 
   useEffect(() => {
     getDataFromDB();
+    console.log("layout");
   }, []);
 
   const getDataFromDB = () => {

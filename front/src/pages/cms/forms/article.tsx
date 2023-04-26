@@ -2,10 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import style from "../../../styles/cms/_form.module.scss";
 import Layout from "../../../layout";
-import { article, NextPageWithLayout } from "../../../models/interfaces";
-import instance from "../../../api/instance";
+import { NextPageWithLayout } from "../../../models/interfaces";
 import { useRouter } from "next/router";
 import MainContext from "../../../context/mainContext";
+import { addDataToDB, updateDataInDB } from "../../../actions/apiRequest";
 
 const ArticleForm: NextPageWithLayout = () => {
   const router = useRouter();
@@ -38,25 +38,29 @@ const ArticleForm: NextPageWithLayout = () => {
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-
     ID
-      ? instance
-          .put(`/article/${ID}`, input)
-          .then((res) => {
-            res.status == 200 &&
-              (router.push("/cms/category?key=article"),
-              dispatch!({
-                type: "UPDATE_DATA",
-                payload: { category: "article", data: res.data },
-              }));
-          })
-          .catch((err) => console.log("err"))
-      : instance
-          .post("/article", input)
-          .then((res) => {
-            res.status == 201 && router.push("/cms");
-          })
-          .catch((err) => console.log("err"));
+      ? updateDataInDB("article", ID, input, getResult)
+      : addDataToDB("article", input, getResult);
+  };
+
+  const getResult = (data: object) => {
+    ID
+      ? dispatch!({
+          type: "UPDATE_DATA",
+          payload: {
+            category: "article",
+            data,
+          },
+        })
+      : dispatch!({
+          type: "ADD_DATA",
+          payload: {
+            category: "article",
+            data,
+          },
+        });
+
+    router.push("/cms/category?key=article");
   };
 
   return (

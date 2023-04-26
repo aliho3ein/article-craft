@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import style from "../../../styles/cms/_form.module.scss";
 import Layout from "../../../layout";
 import { NextPageWithLayout } from "../../../models/interfaces";
-import instance from "../../../api/instance";
 import { useRouter } from "next/router";
+import { addDataToDB, updateDataInDB } from "../../../actions/apiRequest";
+import MainContext from "../../../context/mainContext";
 
 const UserForm: NextPageWithLayout = () => {
   const router = useRouter();
+  const { dispatch, state } = useContext(MainContext);
+
+  const { ID } = router.query;
+
+  useEffect(() => {
+    ID && getDataForEdit();
+  }, []);
 
   const [input, setInput] = useState({
     name: "",
@@ -17,11 +25,45 @@ const UserForm: NextPageWithLayout = () => {
     img: "",
   });
 
+  const getDataForEdit = () => {
+    const data: any = state!.user.find((item) => {
+      return item._id === ID;
+    });
+
+    setInput({
+      name: data.name,
+      status: data.status,
+      bio: data.bio,
+      skills: data.skills,
+      img: data.img,
+    });
+  };
+
   const submitHandler = (e: any) => {
     e.preventDefault();
-    instance.post("/user", input).then((res) => {
-      res.status == 201 && router.push("/cms");
-    });
+    ID
+      ? updateDataInDB("user", ID, input, getResult)
+      : addDataToDB("user", input, getResult);
+  };
+
+  const getResult = (data: object) => {
+    ID
+      ? dispatch!({
+          type: "UPDATE_DATA",
+          payload: {
+            category: "user",
+            data,
+          },
+        })
+      : dispatch!({
+          type: "ADD_DATA",
+          payload: {
+            category: "user",
+            data,
+          },
+        });
+
+    router.push("/cms/category?key=user");
   };
 
   return (

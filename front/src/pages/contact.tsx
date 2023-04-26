@@ -9,14 +9,14 @@ import {
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { sendMail } from "../actions/apiRequest";
 
 const Contact: NextPageWithLayout = () => {
   const [input, setInput] = useState({ name: "", email: "", massage: "" });
 
   const submitMassage = (e: any) => {
     e.preventDefault();
-    console.log(input);
-
+    sendMail(input);
     setInput({ name: "", email: "", massage: "" });
   };
 
