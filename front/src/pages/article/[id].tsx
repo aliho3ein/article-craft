@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Layout from "../../layout";
 import { NextPageWithLayout } from "../../models/interfaces";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import MainContext from "../../context/mainContext";
 /** */
 import style from "src/styles/component/_article.module.scss";
@@ -20,11 +20,28 @@ import { GetServerSideProps } from "next";
 import instance from "../../api/instance";
 
 /** */
-const ArticleID: NextPageWithLayout<any> = ({ article }) => {
+const ArticleID: NextPageWithLayout<any> = ({ newArticle }) => {
+  /*const [article, setArticle] = useState<any>({
+    title: "",
+    desc: "",
+    hashTag: "",
+    date: "",
+    img: "",
+    like: 0,
+    view: 0,
+  });*/
+
+  const [article, setArticle] = useState(newArticle);
+
   const { state } = useContext(MainContext);
 
   /** get article's ID */
   const { id } = useRouter().query;
+
+  useEffect(() => {
+    const thisArt = state!.article.find((item) => item._id === id);
+    setArticle(thisArt);
+  }, [id]);
 
   const user = {
     id: "1",
@@ -129,13 +146,13 @@ ArticleID.getLayout = (page) => <Layout>{page}</Layout>;
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params!;
 
-  const article = await instance.get(`/article/${id}`).then((res) => {
+  const newArticle = await instance.get(`/article/${id}`).then((res) => {
     return res.data;
   });
 
   return {
     props: {
-      article,
+      newArticle,
     },
   };
 };

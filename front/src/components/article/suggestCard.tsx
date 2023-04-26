@@ -1,7 +1,11 @@
 import { useRouter } from "next/router";
 import { FC } from "react";
 import style from "src/styles/component/_article.module.scss";
-import { articleType } from "../../models/interfaces";
+import { article } from "../../models/interfaces";
+
+interface articleType {
+  value: article;
+}
 
 const SuggestCard: FC<articleType> = ({ value }) => {
   const router = useRouter();
@@ -10,7 +14,7 @@ const SuggestCard: FC<articleType> = ({ value }) => {
   };
 
   return (
-    <div className={style.artPreview} onClick={() => redirectArt(value?.id)}>
+    <div className={style.artPreview} onClick={() => redirectArt(value?._id)}>
       <h3>{value?.title}</h3>
       <p>
         <span>{value.date}</span>

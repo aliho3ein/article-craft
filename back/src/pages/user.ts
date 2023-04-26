@@ -9,8 +9,29 @@ router.get("/", (req: Request, res: Response) => {
 router.post("/", (req: Request, res: Response) => {
   models.user
     .create(req.body)
-    .then(() => res.status(201).send())
+    .then((resolve) => res.status(200).send(resolve))
     .catch((err) => res.status(500).send);
+});
+
+router.put("/:id", (req: Request, res: Response) => {
+  const { id } = req.params;
+  const data = req.body;
+  models.user
+    .findByIdAndUpdate(id, data, { new: true })
+    .then((resolve) => {
+      res.status(200).send(resolve);
+    })
+    .catch((err) => res.status(500).send("Internal server error"));
+});
+
+router.delete("/:id", (req: Request, res: Response) => {
+  const { id } = req.params;
+  models.user
+    .findByIdAndRemove(id)
+    .then(() => {
+      res.status(204).send();
+    })
+    .catch((err) => res.status(500).send(err));
 });
 
 export default router;

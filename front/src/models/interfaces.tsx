@@ -6,6 +6,7 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 };
 
 export interface user {
+  _id: string;
   name: string;
   status: string;
   skills: string;
