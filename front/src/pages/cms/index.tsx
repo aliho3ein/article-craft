@@ -5,15 +5,27 @@ import { NextPageWithLayout } from "../../models/interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Portal: NextPageWithLayout = () => {
+  const rout = useRouter();
+
   return (
     <>
+      <Head>
+        <title>managePortal</title>
+      </Head>
       <main className={style.cmsMain}>
         <nav>
-          <div className={style.navCard}>
+          <div
+            className={style.navCard}
+            onClick={(e) => {
+              rout.push("/cms/category?key=article");
+            }}
+          >
             <Link
-              href="/cms/form?form=article&id=643e4c2671b3bbe62d2e682f"
+              href="/cms/forms/article"
+              onClick={(e) => e.stopPropagation()}
               className={style.addBtn}
             >
               <FontAwesomeIcon icon={faPlus} />
@@ -22,26 +34,53 @@ const Portal: NextPageWithLayout = () => {
             <h2>Articles</h2>
           </div>
 
-          <div className={style.navCard}>
-            <div className={style.addBtn}>
+          <div
+            className={style.navCard}
+            onClick={() => {
+              rout.push("/cms/category?key=shop");
+            }}
+          >
+            <Link
+              href="/cms/forms/shop"
+              onClick={(e) => e.stopPropagation()}
+              className={style.addBtn}
+            >
               <FontAwesomeIcon icon={faPlus} />
-            </div>
+            </Link>
             <div className={style.img}></div>
             <h2>Shop</h2>
           </div>
 
-          <div className={style.navCard}>
-            <div className={style.addBtn}>
+          <div
+            className={style.navCard}
+            onClick={() => {
+              rout.push("/cms/category?key=work");
+            }}
+          >
+            <Link
+              href="/cms/forms/work"
+              onClick={(e) => e.stopPropagation()}
+              className={style.addBtn}
+            >
               <FontAwesomeIcon icon={faPlus} />
-            </div>
+            </Link>
             <div className={style.img}></div>
             <h2>Work</h2>
           </div>
 
-          <div className={style.navCard}>
-            <div className={style.addBtn}>
+          <div
+            className={style.navCard}
+            onClick={() => {
+              rout.push("/cms/category?key=user");
+            }}
+          >
+            <Link
+              href="/cms/forms/user"
+              onClick={(e) => e.stopPropagation()}
+              className={style.addBtn}
+            >
               <FontAwesomeIcon icon={faPlus} />
-            </div>
+            </Link>
             <div className={style.img}></div>
             <h2>Users</h2>
           </div>

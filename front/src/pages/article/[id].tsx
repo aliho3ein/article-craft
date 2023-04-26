@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Layout from "../../layout";
 import { NextPageWithLayout } from "../../models/interfaces";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import MainContext from "../../context/mainContext";
 /** */
 import style from "src/styles/component/_article.module.scss";
@@ -17,10 +17,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Skill from "../../components/skillCard";
 import { GetServerSideProps } from "next";
+import instance from "../../api/instance";
 
 /** */
 const ArticleID: NextPageWithLayout<any> = ({ article }) => {
-  const { articles } = useContext(MainContext);
+  const { state } = useContext(MainContext);
 
   /** get article's ID */
   const { id } = useRouter().query;
@@ -35,14 +36,11 @@ const ArticleID: NextPageWithLayout<any> = ({ article }) => {
     img: "https://as1.ftcdn.net/v2/jpg/03/05/25/28/1000_F_305252832_jZQnjv3kZd0HfMzUB2BaalhTiZzQo7cN.jpg",
   };
 
-  // const article = articles.find((article) => article.id === id);
-  // const user = users.find((user) => user.id === article?.userId);
-
   /** get related articles */
   const hashTg = article?.hashTag.split(",");
-  const suggest = articles.filter((data) => {
+  const suggest = state!.article.filter((data) => {
     for (const tag of hashTg!) {
-      return data.hashTag.includes(tag) && data.id !== id;
+      return data.hashTag.includes(tag) && data._id !== id;
     }
   });
   const suggestList = suggest
@@ -50,7 +48,7 @@ const ArticleID: NextPageWithLayout<any> = ({ article }) => {
     .map((tag, index) => <SuggestCard key={index} value={tag} />);
 
   /** get most views articles */
-  const viewList = articles
+  const viewList = state!.article
     .sort(sortByView)
     .slice(0, 5)
     .map((tag, index) => <SuggestCard key={index} value={tag} />);
@@ -131,11 +129,9 @@ ArticleID.getLayout = (page) => <Layout>{page}</Layout>;
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params!;
 
-  const data = await fetch(
-    `http://localhost:5000/articleCraft/api/article/${id}`
-  );
-
-  const article = await data.json();
+  const article = await instance.get(`/article/${id}`).then((res) => {
+    return res.data;
+  });
 
   return {
     props: {

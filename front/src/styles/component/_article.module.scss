@@ -188,6 +188,7 @@
       }
     }
   }
+
   .mainSide {
     width: 70vw;
     min-width: 300px;
@@ -213,7 +214,8 @@
     }
 
     p {
-      font-size: 1.1rem;
+      font-size: 1.3rem;
+      line-height: 2rem;
       padding: 0 50px 50px;
     }
 
@@ -261,5 +263,24 @@
         }
       }
     }
+  }
+}
+
+/***************** manage ArticleCard *******************/
+
+.artCard {
+  height: 100px;
+  width: 80%;
+  border: 1px solid var(--third-color);
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  margin-top: 50px;
+
+  .cardHeader {
+    height: 100%;
+    aspect-ratio: 1;
+    background: center / contain var(--bgImg);
   }
 }

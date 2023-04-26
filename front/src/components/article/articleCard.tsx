@@ -2,12 +2,16 @@ import { faHeart, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { FC, useEffect } from "react";
-/** */
 import style from "src/styles/component/_article.module.scss";
-import { articleType } from "../../models/interfaces";
+import { article } from "../../models/interfaces";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+export interface articleType {
+  value: article;
+}
+
+/** */
 const ArticleCard: FC<articleType> = ({ value }) => {
   useEffect(() => {
     AOS.init();
@@ -28,7 +32,7 @@ const ArticleCard: FC<articleType> = ({ value }) => {
         <p>
           {value.desc.slice(0, 75)} ...{" "}
           <Link
-            href={`/article/${value.id}`}
+            href={`/article/${value._id}`}
             title={`${value.desc.slice(75, 150)} ...`}
           >
             readMore

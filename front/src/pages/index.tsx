@@ -5,14 +5,30 @@ import Layout from "../layout";
 import style from "src/styles/component/_about.module.scss";
 /** component */
 import Header from "../components/header/header";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import AboutText from "../components/about/aboutText";
 import { useContext } from "react";
 import MainContext from "../context/mainContext";
+import instance from "../api/instance";
 
 /** ABOUT/HOME **/
 const Home: NextPageWithLayout = () => {
-  const { users } = useContext(MainContext);
+  const { dispatch, state } = useContext(MainContext);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    instance.get("/user").then((res) => {
+      dispatch!({
+        type: "GET_DATA",
+        payload: { category: "user", data: res.data },
+      });
+      setUsers(res.data);
+    });
+  };
 
   const aboutRef = useRef<HTMLHeadingElement>(null);
 

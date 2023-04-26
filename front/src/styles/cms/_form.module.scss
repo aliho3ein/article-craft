@@ -1,0 +1,34 @@
+.formMain {
+  display: grid;
+  place-content: center;
+
+  form {
+    margin-top: 150px;
+    padding-block: 50px;
+    width: 30vw;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+    input {
+      width: 100%;
+      height: 50px;
+      font-size: 1.3rem;
+      padding: 5px;
+    }
+
+    textarea {
+      resize: none;
+      width: 100%;
+      padding: 10px;
+    }
+
+    input[type="submit"] {
+      width: 150px;
+      cursor: pointer;
+    }
+  }
+}
