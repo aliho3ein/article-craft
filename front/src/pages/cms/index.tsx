@@ -19,11 +19,15 @@ const Portal: NextPageWithLayout = () => {
         <nav>
           <div
             className={style.navCard}
-            onClick={() => {
+            onClick={(e) => {
               rout.push("/cms/category?key=article");
             }}
           >
-            <Link href="/cms/forms/article" className={style.addBtn}>
+            <Link
+              href="/cms/forms/article"
+              onClick={(e) => e.stopPropagation()}
+              className={style.addBtn}
+            >
               <FontAwesomeIcon icon={faPlus} />
             </Link>
             <div className={style.img}></div>
@@ -36,7 +40,11 @@ const Portal: NextPageWithLayout = () => {
               rout.push("/cms/category?key=shop");
             }}
           >
-            <Link href="/cms/forms/shop" className={style.addBtn}>
+            <Link
+              href="/cms/forms/shop"
+              onClick={(e) => e.stopPropagation()}
+              className={style.addBtn}
+            >
               <FontAwesomeIcon icon={faPlus} />
             </Link>
             <div className={style.img}></div>
@@ -49,7 +57,11 @@ const Portal: NextPageWithLayout = () => {
               rout.push("/cms/category?key=work");
             }}
           >
-            <Link href="/cms/forms/work" className={style.addBtn}>
+            <Link
+              href="/cms/forms/work"
+              onClick={(e) => e.stopPropagation()}
+              className={style.addBtn}
+            >
               <FontAwesomeIcon icon={faPlus} />
             </Link>
             <div className={style.img}></div>
@@ -62,7 +74,11 @@ const Portal: NextPageWithLayout = () => {
               rout.push("/cms/category?key=user");
             }}
           >
-            <Link href="/cms/forms/user" className={style.addBtn}>
+            <Link
+              href="/cms/forms/user"
+              onClick={(e) => e.stopPropagation()}
+              className={style.addBtn}
+            >
               <FontAwesomeIcon icon={faPlus} />
             </Link>
             <div className={style.img}></div>

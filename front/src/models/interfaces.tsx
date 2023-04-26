@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import { ReactElement, ReactNode } from "react";
 import { NextPage } from "next";
 
@@ -6,21 +5,25 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
-export interface articleType {
-  value: {
-    id: string;
-    title: string;
-    desc: string;
-    img: string;
-    view: number;
-    like: number;
-    date: string;
-    userId: string;
-  };
+export interface user {
+  name: string;
+  status: string;
+  skills: string;
+  bio: string;
+  img: string;
+}
+export interface work {
+  _id: string;
+  title: string;
+  desc: string;
+  link: string;
+  img: string;
+  view: number;
+  like: number;
 }
 
 export interface article {
-  id: string;
+  _id: string;
   title: string;
   desc: string;
   img: string;
@@ -28,19 +31,11 @@ export interface article {
   like: number;
   date: string;
   userId: string;
+  hashTag: string;
 }
 
 export interface workType {
-  value: {
-    id: string;
-    title: string;
-    desc: string;
-    link: string;
-    img: string;
-    view: number;
-    like: number;
-    date: string;
-  };
+  value: work;
   index: number;
 }
 

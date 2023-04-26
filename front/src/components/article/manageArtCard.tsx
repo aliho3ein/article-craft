@@ -1,10 +1,20 @@
+import { useRouter } from "next/router";
 import { FC } from "react";
-import { articleType } from "../../models/interfaces";
+import { article } from "../../models/interfaces";
 import style from "./../../styles/component/_article.module.scss";
 
+interface articleType {
+  value: article;
+}
+
 const ArtCmsCard: FC<articleType> = ({ value }) => {
+  const router = useRouter();
+
   return (
-    <div className={style.articleCard}>
+    <div
+      className={style.artCard}
+      onClick={() => router.push(`/cms/forms/article?ID=${value._id}`)}
+    >
       <div
         className={style.cardHeader}
         style={{ ["--bgImg" as string]: `url(${value.img})` }}

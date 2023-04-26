@@ -1,41 +1,14 @@
-import { createContext } from "react";
+import React, { createContext } from "react";
+import { article, user, work } from "../models/interfaces";
 
-const MainContext = createContext({
-  articles: [
-    {
-      id: "",
-      title: "",
-      desc: "",
-      img: "",
-      view: 0,
-      like: 0,
-      date: "",
-      userId: "",
-      hashTag: "",
-    },
-  ],
-  works: [
-    {
-      id: "",
-      title: "",
-      desc: "",
-      link: "",
-      img: "",
-      view: 0,
-      like: 0,
-      date: "",
-    },
-  ],
-  users: [
-    {
-      id: "",
-      name: "",
-      status: "",
-      bio: "",
-      img: "",
-    },
-  ],
-  products: [],
-});
+const MainContext = createContext<{
+  state?: {
+    article: article[];
+    work: work[];
+    user: user[];
+    product: [];
+  };
+  dispatch?: React.Dispatch<any>;
+}>({});
 
 export default MainContext;

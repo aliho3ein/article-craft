@@ -1,13 +1,33 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import style from "../../../styles/cms/_form.module.scss";
 import Layout from "../../../layout";
-import { NextPageWithLayout } from "../../../models/interfaces";
+import { article, NextPageWithLayout } from "../../../models/interfaces";
 import instance from "../../../api/instance";
 import { useRouter } from "next/router";
+import MainContext from "../../../context/mainContext";
 
 const ArticleForm: NextPageWithLayout = () => {
   const router = useRouter();
+  const { ID } = router.query;
+  const { state, dispatch } = useContext(MainContext);
+
+  useEffect(() => {
+    ID && getDataForEdit();
+  }, [ID]);
+
+  const getDataForEdit = () => {
+    const data: any = state!.article.find((item) => {
+      return item._id === ID;
+    });
+
+    setInput({
+      title: data.title,
+      desc: data.desc,
+      img: data.img,
+      hashTag: data.hashTag,
+    });
+  };
 
   const [input, setInput] = useState({
     title: "",
@@ -19,12 +39,24 @@ const ArticleForm: NextPageWithLayout = () => {
   const submitHandler = (e: any) => {
     e.preventDefault();
 
-    instance
-      .post("/article", input)
-      .then((res) => {
-        res.status == 201 && router.push("/cms");
-      })
-      .catch((err) => console.log(err));
+    ID
+      ? instance
+          .put(`/article/${ID}`, input)
+          .then((res) => {
+            res.status == 200 &&
+              (router.push("/cms/category?key=article"),
+              dispatch!({
+                type: "UPDATE_DATA",
+                payload: { category: "article", data: res.data },
+              }));
+          })
+          .catch((err) => console.log("err"))
+      : instance
+          .post("/article", input)
+          .then((res) => {
+            res.status == 201 && router.push("/cms");
+          })
+          .catch((err) => console.log("err"));
   };
 
   return (

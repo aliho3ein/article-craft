@@ -7,9 +7,9 @@ import { NextPageWithLayout } from "../models/interfaces";
 import style from "src/styles/component/_work.module.scss";
 
 const Work: NextPageWithLayout = () => {
-  const { works } = useContext(MainContext);
+  const { state } = useContext(MainContext);
 
-  const workList = works.map((item, index) => (
+  const workList = state!.work.map((item, index) => (
     <WorkCard value={item} index={index} key={index} />
   ));
 

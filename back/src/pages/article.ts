@@ -27,4 +27,17 @@ router.post("/", (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 
+router.put("/:id", (req: Request, res: Response) => {
+  const { id } = req.params;
+  const data = req.body;
+  models.article
+    .findByIdAndUpdate(id, data, { new: true })
+    .then(() => {
+      models.article
+        .findById(id)
+        .then((resolve) => res.status(200).send(resolve));
+    })
+    .catch((err) => res.status(500).send("Internal server error"));
+});
+
 export default router;
