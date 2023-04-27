@@ -1,4 +1,5 @@
 import instance from "../api/instance";
+import { article } from "../models/interfaces";
 
 /***********************************POST */
 export const addDataToDB = (
@@ -40,4 +41,20 @@ export const deleteDataFromDB = (category: string, id: string) => {
 /***********************************CONTACT */
 export const sendMail = (data: object) => {
   instance.post("/contact", data);
+};
+
+/************************************article views */
+export const increaseView = (data: article) => {
+  data.view++;
+  instance
+    .put(`/article/viewAndLike/${data._id}`, data)
+    .catch((err) => console.log("error while update view"));
+};
+
+/************************************article Likes */
+export const increaseLike = (data: article) => {
+  data.like++;
+  instance
+    .put(`/article/viewAndLike/${data._id}`, data)
+    .catch((err) => console.log("error while update Likes"));
 };

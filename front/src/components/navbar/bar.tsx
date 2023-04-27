@@ -1,5 +1,5 @@
 import { FC, useRef, useState } from "react";
-import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import { faMoon, faSun, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 /** */
 import style from "src/styles/_navbar.module.scss";
@@ -66,10 +66,6 @@ const Bar: FC = () => {
         <Link href="/contact">
           <li>contactMe</li>
         </Link>
-
-        <Link href="/cms">
-          <li>portal</li>
-        </Link>
       </ul>
       <div id={style.logo}>
         <img
@@ -84,6 +80,10 @@ const Bar: FC = () => {
           <div id={style.switchCircle} ref={circleRef}></div>
         </div>
       </div>
+      <Link href="/cms" className={style.loginBtn}>
+        <FontAwesomeIcon icon={faUser} className={style.icon} />
+        <span>Login</span>
+      </Link>
     </nav>
   );
 };

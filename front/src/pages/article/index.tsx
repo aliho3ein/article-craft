@@ -9,6 +9,10 @@ import style from "src/styles/component/_article.module.scss";
 const Article: NextPageWithLayout<any> = () => {
   const { state, dispatch } = useContext(MainContext);
 
+  useEffect(() => {
+    dispatch!({ type: "SORT_ARTICLE", payload: {} });
+  }, []);
+
   /** */
   const result = state!.article.map((article, index) => {
     return <ArticleCard key={index} value={article} />;

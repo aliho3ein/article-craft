@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import { model } from "mongoose";
 const router = Router();
 import models from "./../module";
 
@@ -44,6 +45,13 @@ router.delete("/:id", (req: Request, res: Response) => {
       res.status(204).send();
     })
     .catch((err) => res.status(500).send(err));
+});
+
+router.put("/viewAndLike/:id", (req: Request, res: Response) => {
+  const { id } = req.params;
+  models.article
+    .findByIdAndUpdate(id, req.body, { new: true })
+    .then(() => res.status(204).send());
 });
 
 export default router;

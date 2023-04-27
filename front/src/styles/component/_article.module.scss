@@ -35,8 +35,11 @@
         font-size: 0.8rem;
         transform: translateY(10px);
         float: right;
-        color: var(--secondary-color);
+        color: var(--bg-color);
         margin-right: 20px;
+        padding: 1px 5px;
+        border-radius: 8px;
+        background-color: var(--secondary-color);
       }
     }
 
@@ -93,6 +96,14 @@
       .icon {
         font-size: 0.7rem;
         margin-inline: 2px;
+      }
+
+      .like {
+        cursor: pointer;
+
+        &:hover .icon {
+          color: var(--red-color);
+        }
       }
     }
   }
@@ -263,7 +274,7 @@
         margin-left: 5px;
         font-size: 1rem;
         cursor: pointer;
-        color: rgb(188, 27, 27);
+        color: var(--red-color);
         transition: all 200ms;
 
         &:hover {

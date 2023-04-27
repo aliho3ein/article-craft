@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Layout from "../../layout";
 import { NextPageWithLayout } from "../../models/interfaces";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import MainContext from "../../context/mainContext";
 /** */
 import style from "src/styles/component/_article.module.scss";
@@ -18,30 +18,14 @@ import {
 import Skill from "../../components/skillCard";
 import { GetServerSideProps } from "next";
 import instance from "../../api/instance";
+import { increaseLike } from "../../actions/apiRequest";
 
 /** */
 const ArticleID: NextPageWithLayout<any> = ({ newArticle }) => {
-  /*const [article, setArticle] = useState<any>({
-    title: "",
-    desc: "",
-    hashTag: "",
-    date: "",
-    img: "",
-    like: 0,
-    view: 0,
-  });*/
-
-  const [article, setArticle] = useState(newArticle);
-
-  const { state } = useContext(MainContext);
+  const { state, dispatch } = useContext(MainContext);
 
   /** get article's ID */
   const { id } = useRouter().query;
-
-  useEffect(() => {
-    const thisArt = state!.article.find((item) => item._id === id);
-    setArticle(thisArt);
-  }, [id]);
 
   const user = {
     id: "1",
@@ -54,7 +38,7 @@ const ArticleID: NextPageWithLayout<any> = ({ newArticle }) => {
   };
 
   /** get related articles */
-  const hashTg = article?.hashTag.split(",");
+  const hashTg = newArticle?.hashTag.split(",");
   const suggest = state!.article.filter((data) => {
     for (const tag of hashTg!) {
       return data.hashTag.includes(tag) && data._id !== id;
@@ -65,39 +49,44 @@ const ArticleID: NextPageWithLayout<any> = ({ newArticle }) => {
     .map((tag, index) => <SuggestCard key={index} value={tag} />);
 
   /** get most views articles */
-  const viewList = state!.article
+  const viewList = state?.article
     .sort(sortByView)
     .slice(0, 5)
     .map((tag, index) => <SuggestCard key={index} value={tag} />);
 
   /** tags */
-  const tags = article?.hashTag
+  const tags = newArticle!.hashTag
     .split(",")
     .map((tag: string, index: number) => <Skill value={tag} key={index} />);
 
   return (
     <>
       <Head>
-        <title>{article?.title}</title>
+        <title>{newArticle?.title}</title>
       </Head>
 
       <main className={style.singleArticle}>
         <section className={style.mainSide}>
           <div
             className={style.head}
-            style={{ ["--article-img" as string]: `url(${article?.img})` }}
+            style={{ ["--article-img" as string]: `url(${newArticle?.img})` }}
           ></div>
-          <h2>{article?.title}</h2>
-          <p>{article?.desc}</p>
+          <h2>{newArticle?.title}</h2>
+          <p>{newArticle?.desc}</p>
           <div className={style.tags}>Tags : {tags}</div>
           <div className={style.info}>
-            <span>{article?.date}</span>
+            <span>{newArticle?.date}</span>
             <span>
-              {article?.view}
+              {newArticle?.view}
               <FontAwesomeIcon className={style.icon} icon={faUser} />
             </span>
-            <span>
-              {article?.like}
+            <span
+              onClick={() => {
+                increaseLike(newArticle),
+                  dispatch!({ type: "ADD_LIKE", payload: { data: id } });
+              }}
+            >
+              {newArticle?.like}
               <FontAwesomeIcon className={style.icon} icon={faHeart} />
             </span>
           </div>

@@ -1,11 +1,13 @@
 import { faHeart, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { FC, useEffect } from "react";
+import { FC, useContext, useEffect } from "react";
 import style from "src/styles/component/_article.module.scss";
 import { article } from "../../models/interfaces";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { increaseLike, increaseView } from "../../actions/apiRequest";
+import MainContext from "../../context/mainContext";
 
 export interface articleType {
   value: article;
@@ -13,9 +15,15 @@ export interface articleType {
 
 /** */
 const ArticleCard: FC<articleType> = ({ value }) => {
+  const { dispatch } = useContext(MainContext);
+
   useEffect(() => {
     AOS.init();
   }, []);
+
+  const updateView = () => {
+    increaseView(value);
+  };
 
   return (
     <div className={style.articleCard} data-aos="fade-up">
@@ -24,7 +32,7 @@ const ArticleCard: FC<articleType> = ({ value }) => {
         style={{ ["--bgImg" as string]: `url(${value.img})` }}
       >
         <span className={style.date} title="modify Date">
-          {value.date}
+          {value.createdAt.slice(0, 10)}
         </span>
       </div>
       <div className={style.articlePreInfo}>
@@ -34,6 +42,7 @@ const ArticleCard: FC<articleType> = ({ value }) => {
           <Link
             href={`/article/${value._id}`}
             title={`${value.desc.slice(75, 150)} ...`}
+            onClick={updateView}
           >
             readMore
           </Link>
@@ -44,7 +53,14 @@ const ArticleCard: FC<articleType> = ({ value }) => {
           {value.view} <FontAwesomeIcon className={style.icon} icon={faUser} />
         </span>
 
-        <span title="Likes">
+        <span
+          title="Likes"
+          className={style.like}
+          onClick={() => {
+            increaseLike(value),
+              dispatch!({ type: "ADD_LIKE", payload: { data: value._id } });
+          }}
+        >
           <FontAwesomeIcon className={style.icon} icon={faHeart} /> {value.like}
         </span>
       </div>
