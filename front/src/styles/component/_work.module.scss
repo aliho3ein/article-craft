@@ -39,6 +39,7 @@
         padding-top: 10px;
         display: flex;
         justify-content: space-between;
+        user-select: none;
 
         a {
           all: unset;

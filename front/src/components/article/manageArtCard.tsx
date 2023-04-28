@@ -4,6 +4,8 @@ import { deleteDataFromDB } from "../../actions/apiRequest";
 import MainContext from "../../context/mainContext";
 import { article } from "../../models/interfaces";
 import style from "./../../styles/component/_article.module.scss";
+import Swal from "sweetalert2";
+import { alertMassage } from "../../actions/alerts";
 
 interface articleType {
   value: article;
@@ -15,10 +17,24 @@ const ArtCmsCard: FC<articleType> = ({ value }) => {
 
   const deleteItem = async (e: any) => {
     e.stopPropagation();
-    deleteDataFromDB("article", value._id);
-    dispatch!({
-      type: "DELETE_DATA",
-      payload: { category: "article", data: value._id },
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#333",
+      cancelButtonColor: "#999",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteDataFromDB("article", value._id);
+        dispatch!({
+          type: "DELETE_DATA",
+          payload: { category: "article", data: value._id },
+        });
+        alertMassage("Your file has been deleted");
+      }
     });
   };
 

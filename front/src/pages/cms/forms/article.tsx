@@ -6,6 +6,7 @@ import { NextPageWithLayout } from "../../../models/interfaces";
 import { useRouter } from "next/router";
 import MainContext from "../../../context/mainContext";
 import { addDataToDB, updateDataInDB } from "../../../actions/apiRequest";
+import { alertMassage } from "../../../actions/alerts";
 
 const ArticleForm: NextPageWithLayout = () => {
   const router = useRouter();
@@ -59,7 +60,7 @@ const ArticleForm: NextPageWithLayout = () => {
             data,
           },
         });
-
+    alertMassage("The operation was successful");
     router.push("/cms/category?key=article");
   };
 

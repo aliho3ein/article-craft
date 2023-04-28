@@ -30,7 +30,7 @@ export interface article {
   img: string;
   view: number;
   like: number;
-  date: string;
+  createdAt: string;
   userId: string;
   hashTag: string;
 }
