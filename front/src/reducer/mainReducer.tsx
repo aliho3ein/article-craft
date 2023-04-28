@@ -1,4 +1,5 @@
-import { sortByDateReverse } from "../models/sortList";
+import { log } from "console";
+import { sortByDateReverse, sortById } from "../models/sortList";
 
 const MainReducer = (state: any, action: any) => {
   const { category, data } = action.payload;
@@ -18,18 +19,23 @@ const MainReducer = (state: any, action: any) => {
       return { ...state, [category]: newList };
 
     case "SORT_ARTICLE":
-      return { ...state, article: state.article.sort(sortByDateReverse) };
+      return { ...state, article: state.article.sort(sortById) };
 
     case "ADD_LIKE":
-      newList = state.article.map((item: any) => {
-        item._id === data._id && item.like++;
-        return item;
-      });
-      return { ...state, article: newList };
+      newList = state[category].filter((item: any) => item._id !== data._id);
+      return {
+        ...state,
+        [category]: [...newList, data].sort(sortById),
+      };
 
     default:
       // fetch DATA
-      return { ...state, ...data };
+      return {
+        ...state,
+        ...data,
+        work: data.work.sort(sortById),
+        article: data.article.sort(sortById),
+      };
   }
 
   return state;

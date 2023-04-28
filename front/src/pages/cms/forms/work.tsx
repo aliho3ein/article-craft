@@ -3,10 +3,10 @@ import Head from "next/head";
 import style from "../../../styles/cms/_form.module.scss";
 import Layout from "../../../layout";
 import { NextPageWithLayout } from "../../../models/interfaces";
-import instance from "../../../api/instance";
 import { useRouter } from "next/router";
 import MainContext from "../../../context/mainContext";
 import { addDataToDB, updateDataInDB } from "../../../actions/apiRequest";
+import { alertMassage } from "../../../actions/alerts";
 
 const WorkForm: NextPageWithLayout = () => {
   const router = useRouter();
@@ -60,7 +60,7 @@ const WorkForm: NextPageWithLayout = () => {
             data,
           },
         });
-
+    alertMassage("The operation was successful");
     router.push("/cms/category?key=work");
   };
 

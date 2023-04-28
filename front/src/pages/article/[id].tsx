@@ -18,7 +18,7 @@ import {
 import Skill from "../../components/skillCard";
 import { GetServerSideProps } from "next";
 import instance from "../../api/instance";
-import { increaseLike } from "../../actions/apiRequest";
+import { updateLikeAndView } from "../../actions/apiRequest";
 
 /** */
 const ArticleID: NextPageWithLayout<any> = ({ newArticle }) => {
@@ -82,8 +82,11 @@ const ArticleID: NextPageWithLayout<any> = ({ newArticle }) => {
             </span>
             <span
               onClick={() => {
-                increaseLike(newArticle),
-                  dispatch!({ type: "ADD_LIKE", payload: { data: id } });
+                updateLikeAndView("article", "like", newArticle),
+                  dispatch!({
+                    type: "ADD_LIKE",
+                    payload: { category: "article", data: newArticle },
+                  });
               }}
             >
               {newArticle?.like}

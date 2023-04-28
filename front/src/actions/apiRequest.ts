@@ -1,5 +1,6 @@
 import instance from "../api/instance";
-import { article } from "../models/interfaces";
+import { article, work } from "../models/interfaces";
+import { alertMassage } from "./alerts";
 
 /***********************************POST */
 export const addDataToDB = (
@@ -41,20 +42,22 @@ export const deleteDataFromDB = (category: string, id: string) => {
 /***********************************CONTACT */
 export const sendMail = (data: object) => {
   instance.post("/contact", data);
+  alertMassage("Your massage has been sent successfully", "success", 6000);
 };
 
-/************************************article views */
-export const increaseView = (data: article) => {
-  data.view++;
+/************************************Likes and view */
+export const updateLikeAndView = (
+  category: string,
+  act: string,
+  data: work | article
+) => {
+  act === "like" ? data.like++ : data.view++;
   instance
-    .put(`/article/viewAndLike/${data._id}`, data)
-    .catch((err) => console.log("error while update view"));
-};
-
-/************************************article Likes */
-export const increaseLike = (data: article) => {
-  data.like++;
-  instance
-    .put(`/article/viewAndLike/${data._id}`, data)
+    .put(`/${category}/viewAndLike/${data._id}`, data)
+    .then(
+      () =>
+        act === "like" &&
+        alertMassage("I'm thankful for your feedback", "success", 6000)
+    )
     .catch((err) => console.log("error while update Likes"));
 };

@@ -14,7 +14,6 @@ import {
 } from "../../models/interfaces";
 import MainContext from "../../context/mainContext";
 
-
 /** */
 const Categories: NextPageWithLayout<any> = () => {
   const { key } = useRouter().query;

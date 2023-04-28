@@ -6,7 +6,7 @@ import style from "src/styles/component/_article.module.scss";
 import { article } from "../../models/interfaces";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { increaseLike, increaseView } from "../../actions/apiRequest";
+import { updateLikeAndView } from "../../actions/apiRequest";
 import MainContext from "../../context/mainContext";
 
 export interface articleType {
@@ -22,7 +22,15 @@ const ArticleCard: FC<articleType> = ({ value }) => {
   }, []);
 
   const updateView = () => {
-    increaseView(value);
+    updateLikeAndView("article", "view", value);
+  };
+
+  const updateLike = () => {
+    updateLikeAndView("article", "like", value);
+    dispatch!({
+      type: "ADD_LIKE",
+      payload: { category: "article", data: value },
+    });
   };
 
   return (
@@ -53,14 +61,7 @@ const ArticleCard: FC<articleType> = ({ value }) => {
           {value.view} <FontAwesomeIcon className={style.icon} icon={faUser} />
         </span>
 
-        <span
-          title="Likes"
-          className={style.like}
-          onClick={() => {
-            increaseLike(value),
-              dispatch!({ type: "ADD_LIKE", payload: { data: value._id } });
-          }}
-        >
+        <span title="Likes" className={style.like} onClick={updateLike}>
           <FontAwesomeIcon className={style.icon} icon={faHeart} /> {value.like}
         </span>
       </div>
