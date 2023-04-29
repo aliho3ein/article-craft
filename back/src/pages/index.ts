@@ -10,7 +10,15 @@ router.get("/", (req: Request, res: Response) => {
     product: [],
   };
   models.user.find({}).then((resolve) => {
-    result.user = resolve;
+    resolve.forEach((element) => {
+      result.user.push({
+        name: element.name,
+        img: element.img,
+        bio: element.bio,
+        skills: element.skills,
+        status: element.status,
+      });
+    });
   });
   models.article.find({}).then((resolve) => {
     result.article = resolve;

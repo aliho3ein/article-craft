@@ -34,6 +34,8 @@ const userSchema = new Schema(
       type: String,
       default: "https://kanooelite.com/wp-content/uploads/2020/11/nophoto.png",
     },
+    email: { type: String, require: true },
+    pass: { type: String, require: true },
   },
   { timestamps: true }
 );

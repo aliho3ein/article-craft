@@ -34,4 +34,16 @@ router.delete("/:id", (req: Request, res: Response) => {
     .catch((err) => res.status(500).send(err));
 });
 
+router.post("/login", async (req: Request, res: Response) => {
+  const { email, pass } = req.body;
+
+  const result = await models.user.findOne({
+    $and: [{ email }, { pass }],
+  });
+
+  result
+    ? res.status(200).send([result._id, result.name])
+    : res.status(401).send();
+});
+
 export default router;
