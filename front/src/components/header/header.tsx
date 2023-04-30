@@ -41,10 +41,12 @@ const Header: FC = () => {
         id={style.headTitle}
         style={{
           textShadow: `
-      ${shadow.x * -1}px ${shadow.y}px 7px rgba(255, 0, 0, 0.35),
-      ${shadow.y}px ${shadow.x * -1}px 8px rgba(8, 240, 6, 0.3),
-      ${shadow.y * -1}px ${shadow.x}px 5px rgba(250, 250, 00, 0.3),
-      ${shadow.x}px ${shadow.y * -1}px 6px rgba(1, 21, 231,0.4)
+      ${shadow.x * -1}px ${shadow.y}px 7px rgba(51, 51, 51, 0.15),
+      ${shadow.y}px ${shadow.x * -1}px 8px rgba(153, 153, 153, 0.2),
+      ${shadow.y * -1}px ${shadow.x}px 5px rgba(187, 187, 187, 0.2),
+      ${shadow.x}px ${shadow.y * -1}px 6px rgba(0, 0, 0,0.2),
+      ${shadow.x}px ${shadow.y * -1}px 6px rgba(250, 250, 250,0.4)
+
       `,
         }}
       >
@@ -85,3 +87,10 @@ const Header: FC = () => {
 };
 
 export default Header;
+
+/**
+  ${shadow.x * -1}px ${shadow.y}px 7px rgba(255, 0, 0, 0.35),
+      ${shadow.y}px ${shadow.x * -1}px 8px rgba(8, 240, 6, 0.3),
+      ${shadow.y * -1}px ${shadow.x}px 5px rgba(250, 250, 00, 0.3),
+      ${shadow.x}px ${shadow.y * -1}px 6px rgba(1, 21, 231,0.4)
+ */

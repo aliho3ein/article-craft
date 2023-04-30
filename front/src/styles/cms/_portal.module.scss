@@ -1,15 +1,27 @@
+@mixin responsive($screen) {
+  @media screen and (min-width: #{$screen}px) {
+    @content;
+  }
+}
+
 .cmsMain {
-  padding-block: 150px;
+  margin-top: 80px;
   background: center / contain var(--contact-bg) no-repeat;
+  position: relative;
+  display: grid;
+  place-content: center;
+
+  @include responsive(800) {
+    margin-top: 0px;
+  }
 
   nav {
-    min-height: 800px;
-    width: 100%;
+    width: 80vw;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 100px;
+    gap: 50px 3%;
 
     .navCard {
       height: 250px;
@@ -78,6 +90,63 @@
           top: (-40px);
         }
       }
+    }
+  }
+
+  .loginMain {
+    height: 300px;
+    width: 25%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: rgba(#999, 0.7);
+    backdrop-filter: blur(10px);
+
+    .submitBtn {
+      all: unset;
+      width: 60px;
+      transform: scale(0.9);
+      user-select: none;
+      cursor: pointer;
+      text-align: center;
+      background-color: var(--bg-color);
+      color: var(--primary-color);
+      padding: 5px 3px;
+      transition: all 300ms;
+
+      &:hover {
+        box-shadow: 0 0 8px var(--primary-color);
+      }
+    }
+
+    input {
+      background-color: var(--bg-color);
+      color: var(--primary-color);
+      width: 70%;
+      padding: 4px;
+      font-size: 1.1rem;
+      border: none;
+      transition: all 300ms;
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 8px var(--primary-color);
+      }
+    }
+
+    a {
+      all: unset;
+      cursor: pointer;
+      color: var(--primary-color);
     }
   }
 }

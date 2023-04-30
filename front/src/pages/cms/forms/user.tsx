@@ -24,6 +24,8 @@ const UserForm: NextPageWithLayout = () => {
     bio: "",
     skills: "",
     img: "",
+    email: "",
+    pass: "",
   });
 
   const getDataForEdit = () => {
@@ -37,6 +39,8 @@ const UserForm: NextPageWithLayout = () => {
       bio: data.bio,
       skills: data.skills,
       img: data.img,
+      email: data.email,
+      pass: data.pass,
     });
   };
 
@@ -79,6 +83,24 @@ const UserForm: NextPageWithLayout = () => {
             name="name"
             placeholder="name"
             value={input.name}
+            onChange={(e) =>
+              setInput({ ...input, [e.target.name]: e.target.value })
+            }
+          />
+          <input
+            type="input"
+            name="email"
+            placeholder="Email"
+            value={input.email}
+            onChange={(e) =>
+              setInput({ ...input, [e.target.name]: e.target.value })
+            }
+          />{" "}
+          <input
+            type="password"
+            name="pass"
+            placeholder="Password"
+            value={input.pass}
             onChange={(e) =>
               setInput({ ...input, [e.target.name]: e.target.value })
             }

@@ -1,5 +1,6 @@
+import { log } from "console";
 import instance from "../api/instance";
-import { article, work } from "../models/interfaces";
+import { article, login, work } from "../models/interfaces";
 import { alertMassage } from "./alerts";
 
 /***********************************POST */
@@ -39,10 +40,22 @@ export const deleteDataFromDB = (category: string, id: string) => {
     .catch((err) => false);
 };
 
+/************************************GET USERS */
+export const getUsersFromDB = async () => {
+  return instance.get("/user").then((res) => Promise.resolve(res.data));
+};
+
 /***********************************CONTACT */
 export const sendMail = (data: object) => {
-  instance.post("/contact", data);
-  alertMassage("Your massage has been sent successfully", "success", 6000);
+  return instance
+    .post("/contact", data)
+    .then((res) => {
+      alertMassage("Your massage has been sent successfully", "success", 6000);
+      return Promise.resolve();
+    })
+    .catch((err) => {
+      alertMassage("Failed , please try again", "error", 6000);
+    });
 };
 
 /************************************Likes and view */
@@ -61,3 +74,23 @@ export const updateLikeAndView = (
     )
     .catch((err) => console.log("error while update Likes"));
 };
+
+/************************************CHECK VALIDATION */
+export const checkValidation = async (data: login) => {
+  return instance
+    .post("user/login", data)
+    .then((res) => {
+      return res.status === 200
+        ? (alertMassage(`Welcome back ${res.data[1]}`),
+          Promise.resolve(res.data[0]))
+        : Promise.reject(new Error());
+    })
+    .catch((err) => {
+      alertMassage("Email or Password is false", "error");
+      throw new Error();
+    });
+};
+
+/**
+alihossain.ahmadi@hotmail.com
+*/

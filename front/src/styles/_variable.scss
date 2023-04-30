@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;300;400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Barlow:wght@200;300;500&display=swap");
-// @import "@sweetalert2/theme-minimal/minimal.scss";
 
 * {
   margin: 0;
@@ -39,4 +38,11 @@
 
 ::-moz-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.2);
+}
+
+/** */
+@mixin responsive($screen) {
+  @media screen and (min-width: #{$screen}px) {
+    @content;
+  }
 }

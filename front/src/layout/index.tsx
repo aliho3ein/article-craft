@@ -5,6 +5,7 @@ import React, { ReactNode, useEffect, useReducer } from "react";
 import MainContext from "../context/mainContext";
 import MainReducer from "../reducer/mainReducer";
 import instance from "../api/instance";
+import LoadingComponent from "../components/loading";
 /** */
 interface props {
   children: ReactNode;
@@ -16,16 +17,18 @@ export default function Layout({ children }: props) {
     work: [],
     user: [],
     product: [],
+    token: "644d61f17155db731aaf5074", // 644d61f17155db731aaf5074
+    isLoading: false,
   };
 
   const [state, dispatch] = useReducer(MainReducer, initialState);
 
   useEffect(() => {
     getDataFromDB();
-    console.log("fetch data");
   }, []);
 
   const getDataFromDB = () => {
+    dispatch({ type: "LOADING" });
     instance
       .get("")
       .then((res) => {
@@ -36,11 +39,12 @@ export default function Layout({ children }: props) {
 
   return (
     <>
-      <Navbar />
       <MainContext.Provider value={{ state, dispatch }}>
+        <Navbar />
+        {state.isLoading && <LoadingComponent />}
         {children}
+        <Footer />
       </MainContext.Provider>
-      <Footer />
     </>
   );
 }

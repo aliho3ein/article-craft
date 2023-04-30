@@ -13,6 +13,14 @@ const ArticleForm: NextPageWithLayout = () => {
   const { ID } = router.query;
   const { state, dispatch } = useContext(MainContext);
 
+  const [input, setInput] = useState({
+    title: "",
+    desc: "",
+    img: "",
+    hashTag: "",
+    userId: state!.token,
+  });
+
   useEffect(() => {
     ID && getDataForEdit();
   }, [ID]);
@@ -27,15 +35,9 @@ const ArticleForm: NextPageWithLayout = () => {
       desc: data.desc,
       img: data.img,
       hashTag: data.hashTag,
+      userId: data.userId,
     });
   };
-
-  const [input, setInput] = useState({
-    title: "",
-    desc: "",
-    img: "",
-    hashTag: "",
-  });
 
   const submitHandler = (e: any) => {
     e.preventDefault();

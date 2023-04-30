@@ -128,6 +128,19 @@
       }
     }
   }
+
+  .portalBtn {
+    all: unset;
+    margin-right: 80px;
+    cursor: pointer;
+
+    padding: 5px;
+    border-bottom: 1px solid transparent;
+
+    &:hover {
+      border-color: var(--secondary-color);
+    }
+  }
 }
 
 @keyframes logoShape {

@@ -1,8 +1,13 @@
 import { FC, useEffect, useRef } from "react";
 import style from "src/styles/component/_about.module.scss";
 import Skill from "../skillCard";
+import { user } from "../../models/interfaces";
 
-const AboutText: FC<any> = ({ data }) => {
+interface userType {
+  data: user;
+}
+
+const AboutText: FC<userType> = ({ data }) => {
   const paragraphRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
@@ -10,7 +15,6 @@ const AboutText: FC<any> = ({ data }) => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          //   typeText(data[Math.floor(Math.random() * data.length)]);
           typeText(data.bio);
           observer.unobserve(entry.target);
         }

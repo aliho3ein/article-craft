@@ -7,6 +7,8 @@ const MainContext = createContext<{
     work: work[];
     user: user[];
     product: [];
+    token: string | null;
+    isLoading: boolean;
   };
   dispatch?: React.Dispatch<any>;
 }>({});

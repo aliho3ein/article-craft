@@ -1,14 +1,20 @@
-import { FC, useRef, useState } from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import { faMoon, faSun, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 /** */
 import style from "src/styles/_navbar.module.scss";
 import Link from "next/link";
+import MainContext from "../../context/mainContext";
 
 const Bar: FC = () => {
   const circleRef = useRef<HTMLHeadingElement>(null);
+  const { state } = useContext(MainContext);
 
   const [mode, setMode] = useState(true);
+
+  useEffect(() => {
+    // switchMode();
+  }, []);
 
   /** DarkMode switch key */
   const switchMode = () => {
@@ -80,10 +86,16 @@ const Bar: FC = () => {
           <div id={style.switchCircle} ref={circleRef}></div>
         </div>
       </div>
-      <Link href="/cms" className={style.loginBtn}>
-        <FontAwesomeIcon icon={faUser} className={style.icon} />
-        <span>Login</span>
-      </Link>
+      {state!.token ? (
+        <Link href="/cms" className={style.portalBtn}>
+          <span>managePortal</span>
+        </Link>
+      ) : (
+        <Link href="/cms" className={style.loginBtn}>
+          <FontAwesomeIcon icon={faUser} className={style.icon} />
+          <span>Login</span>
+        </Link>
+      )}
     </nav>
   );
 };

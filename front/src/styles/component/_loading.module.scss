@@ -1,0 +1,52 @@
+$size: 30px;
+$color: var(--primary-color);
+$no-of-el: 5;
+
+@keyframes whirl-book {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50%,
+  80% {
+    transform: rotateY(-180deg);
+  }
+  90%,
+  100% {
+    opacity: 0;
+    transform: rotateY(-180deg);
+  }
+}
+
+.loadingMain {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  place-content: center;
+  background-color: rgba(var(--bg-color), 0.7);
+  z-index: 99;
+  backdrop-filter: blur(15px);
+
+  .book {
+    height: $size;
+    position: relative;
+    width: $size;
+    perspective: ($size * 2);
+
+    div {
+      animation: whirl-book 2s infinite;
+      background: $color;
+      height: 100%;
+      position: absolute;
+      left: 50%;
+      transform-origin: left;
+      width: 100%;
+    }
+
+    @for $el from 1 through $no-of-el {
+      div:nth-child(#{$el}) {
+        animation-delay: $el * 0.15s;
+      }
+    }
+  }
+}
