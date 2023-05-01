@@ -8,6 +8,7 @@
 }
 
 .alertMassage {
+  user-select: none !important;
   color: var(--bg-color) !important;
   background-color: var(--primary-color) !important;
 }

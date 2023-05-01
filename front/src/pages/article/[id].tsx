@@ -19,6 +19,7 @@ import Skill from "../../components/skillCard";
 import { GetServerSideProps } from "next";
 import instance from "../../api/instance";
 import { updateLikeAndView } from "../../actions/apiRequest";
+import { checkLike } from "../../actions/localStorage";
 
 /** */
 const ArticleID: NextPageWithLayout<any> = ({ newArticle, user }) => {
@@ -49,6 +50,15 @@ const ArticleID: NextPageWithLayout<any> = ({ newArticle, user }) => {
     .split(",")
     .map((tag: string, index: number) => <Skill value={tag} key={index} />);
 
+  const likeArticle = () => {
+    const liked = checkLike(newArticle._id);
+    liked && updateLikeAndView("article", "like", newArticle),
+      dispatch!({
+        type: "ADD_LIKE",
+        payload: { category: "article", data: newArticle },
+      });
+  };
+
   return (
     <>
       <Head>
@@ -70,15 +80,7 @@ const ArticleID: NextPageWithLayout<any> = ({ newArticle, user }) => {
               {newArticle?.view}
               <FontAwesomeIcon className={style.icon} icon={faUser} />
             </span>
-            <span
-              onClick={() => {
-                updateLikeAndView("article", "like", newArticle),
-                  dispatch!({
-                    type: "ADD_LIKE",
-                    payload: { category: "article", data: newArticle },
-                  });
-              }}
-            >
+            <span onClick={likeArticle}>
               {newArticle?.like}
               <FontAwesomeIcon className={style.icon} icon={faHeart} />
             </span>

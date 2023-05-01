@@ -1,4 +1,3 @@
-import { log } from "console";
 import instance from "../api/instance";
 import { article, login, work } from "../models/interfaces";
 import { alertMassage } from "./alerts";
@@ -91,6 +90,34 @@ export const checkValidation = async (data: login) => {
     });
 };
 
+export const checkValidationById = async (id: string) => {
+  instance
+    .post("user/checkId", { id })
+    .then((res) => res.status === 201 && Promise.resolve(res.data));
+};
+
+/******************************Reset Pass */
+export const resetPass = async (email: string) => {
+  return instance
+    .post("user/reset", { mail: email })
+    .then((res) => {
+      alertMassage(
+        "You should receive an email containing the new password shortly.",
+        "info",
+        8000
+      );
+      return Promise.resolve();
+    })
+    .catch((err) => {
+      alertMassage(
+        "There is no account associated with the email address",
+        "error",
+        8000
+      );
+      return Promise.reject();
+    });
+};
+
 /**
 alihossain.ahmadi@hotmail.com
-*/
+ */

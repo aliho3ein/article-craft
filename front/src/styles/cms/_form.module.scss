@@ -1,8 +1,11 @@
 .formMain {
+  background: center / contain var(--contact-bg) no-repeat;
+  position: relative;
+
   display: grid;
   place-content: center;
 
-  form {
+  .manageForm {
     margin-top: 150px;
     padding-block: 50px;
     width: 30vw;

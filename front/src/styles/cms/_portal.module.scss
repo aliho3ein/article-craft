@@ -26,6 +26,7 @@
     .navCard {
       height: 250px;
       width: 20%;
+      max-width: 400px;
       min-width: 250px;
       background-color: rgba(#999, 0.7);
       backdrop-filter: blur(10px);
@@ -92,63 +93,6 @@
       }
     }
   }
-
-  .loginMain {
-    height: 300px;
-    width: 25%;
-    min-width: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    background-color: rgba(#999, 0.7);
-    backdrop-filter: blur(10px);
-
-    .submitBtn {
-      all: unset;
-      width: 60px;
-      transform: scale(0.9);
-      user-select: none;
-      cursor: pointer;
-      text-align: center;
-      background-color: var(--bg-color);
-      color: var(--primary-color);
-      padding: 5px 3px;
-      transition: all 300ms;
-
-      &:hover {
-        box-shadow: 0 0 8px var(--primary-color);
-      }
-    }
-
-    input {
-      background-color: var(--bg-color);
-      color: var(--primary-color);
-      width: 70%;
-      padding: 4px;
-      font-size: 1.1rem;
-      border: none;
-      transition: all 300ms;
-
-      &:focus {
-        outline: none;
-        box-shadow: 0 0 8px var(--primary-color);
-      }
-    }
-
-    a {
-      all: unset;
-      cursor: pointer;
-      color: var(--primary-color);
-    }
-  }
 }
 
 .categoryMain {
@@ -158,4 +102,50 @@
   flex-wrap: wrap;
   margin-block: 200px;
   color: var(--primary-color);
+}
+
+.recoverForm {
+  height: 200px;
+  width: 25vw;
+  min-width: 300px;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background-color: rgba(#999, 0.7);
+  backdrop-filter: blur(10px);
+
+  .submitBtn {
+    all: unset;
+    width: 60px;
+    transform: scale(0.9);
+    user-select: none;
+    cursor: pointer;
+    text-align: center;
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    padding: 5px 3px;
+    transition: all 300ms;
+
+    &:hover {
+      box-shadow: 0 0 8px var(--primary-color);
+    }
+  }
+
+  > input {
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    width: 70%;
+    padding: 12px 4px;
+    font-size: 1.1rem;
+    border: none;
+    transition: all 300ms;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 8px var(--primary-color);
+    }
+  }
 }

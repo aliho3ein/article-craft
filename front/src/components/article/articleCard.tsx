@@ -8,6 +8,12 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { updateLikeAndView } from "../../actions/apiRequest";
 import MainContext from "../../context/mainContext";
+import {
+  checkLike,
+  getLocalStorage,
+  setLocalStorage,
+} from "../../actions/localStorage";
+import { alertMassage } from "../../actions/alerts";
 
 export interface articleType {
   value: article;
@@ -26,11 +32,13 @@ const ArticleCard: FC<articleType> = ({ value }) => {
   };
 
   const updateLike = () => {
-    updateLikeAndView("article", "like", value);
-    dispatch!({
-      type: "ADD_LIKE",
-      payload: { category: "article", data: value },
-    });
+    const liked = checkLike(value._id);
+    liked &&
+      (updateLikeAndView("article", "like", value),
+      dispatch!({
+        type: "ADD_LIKE",
+        payload: { category: "article", data: value },
+      }));
   };
 
   return (

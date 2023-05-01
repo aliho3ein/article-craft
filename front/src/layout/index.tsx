@@ -6,6 +6,8 @@ import MainContext from "../context/mainContext";
 import MainReducer from "../reducer/mainReducer";
 import instance from "../api/instance";
 import LoadingComponent from "../components/loading";
+import { getLocalStorage } from "../actions/localStorage";
+import { checkValidationById } from "../actions/apiRequest";
 /** */
 interface props {
   children: ReactNode;
@@ -17,7 +19,7 @@ export default function Layout({ children }: props) {
     work: [],
     user: [],
     product: [],
-    token: "644d61f17155db731aaf5074", // 644d61f17155db731aaf5074
+    token: "", // 644d61f17155db731aaf5074
     isLoading: false,
   };
 
@@ -25,6 +27,9 @@ export default function Layout({ children }: props) {
 
   useEffect(() => {
     getDataFromDB();
+    const token = getLocalStorage("token");
+    token && logUserIn(token);
+    console.log("fetch");
   }, []);
 
   const getDataFromDB = () => {
@@ -35,6 +40,12 @@ export default function Layout({ children }: props) {
         dispatch({ type: "", payload: { data: res.data } });
       })
       .catch((err) => console.log("error on layout"));
+  };
+
+  const logUserIn = (id: string) => {
+    checkValidationById(id).then(() => {
+      dispatch({ type: "LOGIN_USER", payload: { data: id } });
+    });
   };
 
   return (

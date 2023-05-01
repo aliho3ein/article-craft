@@ -27,6 +27,6 @@ app.use("/articleCraft/api/user", userPage);
 app.use("/articleCraft/api", index);
 
 /** Listener */
-app.listen(5001, () => {
-  console.log("Server listening on port 5001");
+app.listen(5002, () => {
+  console.log("Server listening on port 5002");
 });

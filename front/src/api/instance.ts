@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:5001/articleCraft/api",
+  baseURL: "http://localhost:5002/articleCraft/api",
   timeout: 8000,
 });
 

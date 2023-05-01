@@ -7,6 +7,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { updateLikeAndView } from "../../actions/apiRequest";
 import MainContext from "../../context/mainContext";
+import { checkLike } from "../../actions/localStorage";
 
 const WorkCard: FC<workType> = ({ value, index }) => {
   const { dispatch } = useContext(MainContext);
@@ -16,7 +17,8 @@ const WorkCard: FC<workType> = ({ value, index }) => {
   }, []);
 
   const addLike = () => {
-    updateLikeAndView("work", "like", value);
+    const liked = checkLike(value._id);
+    liked && updateLikeAndView("work", "like", value);
     dispatch!({
       type: "ADD_LIKE",
       payload: { category: "work", data: value },

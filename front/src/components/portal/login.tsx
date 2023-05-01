@@ -1,25 +1,34 @@
-import { FC, useContext, useState } from "react";
-import style from "./../../styles/cms/_portal.module.scss";
+import { FC, RefObject, useContext, useRef, useState } from "react";
 import Link from "next/link";
 import { checkValidation } from "../../actions/apiRequest";
 import MainContext from "../../context/mainContext";
+import { setLocalStorage } from "../../actions/localStorage";
+import { log } from "console";
 
 const LoginPage: FC = () => {
+  const savePass: RefObject<HTMLInputElement> = useRef(null);
+
   const [input, setInput] = useState({ email: "", pass: "" });
+
   const { dispatch } = useContext(MainContext);
+
+  /** Check user Validation */
   const submitHandler = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     dispatch!({ type: "LOADING" });
+
     checkValidation(input)
       .then((res) => {
         dispatch!({ type: "LOGIN_USER", payload: { data: res } });
+        /** set in localStorage */
+        savePass.current!.checked && setLocalStorage("token", res);
       })
       .catch(() => {
         dispatch!({ type: "LOADING" });
       });
   };
   return (
-    <form className={style.loginMain} onSubmit={submitHandler}>
+    <form id="loginMain" onSubmit={submitHandler}>
       <input
         type="email"
         placeholder="Email"
@@ -32,8 +41,12 @@ const LoginPage: FC = () => {
         value={input.pass}
         onChange={(e) => setInput({ ...input, pass: e.target.value })}
       />
-      <input type="submit" value="Login" className={style.submitBtn} />
-      <Link href="/cms">forgot your password ? </Link>
+      <label className="checkBox" htmlFor="passRemember">
+        <input type="checkbox" name="pass" id="passRemember" ref={savePass} />
+        <span>Remember my Password</span>
+      </label>
+      <input type="submit" value="Login" className="submitBtn" />
+      <Link href="/cms/passRecover">Forgot my password ? </Link>
     </form>
   );
 };
