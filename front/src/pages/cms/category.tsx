@@ -13,17 +13,18 @@ import {
   user,
 } from "../../models/interfaces";
 import MainContext from "../../context/mainContext";
+import { getUsersFromDB } from "../../actions/apiRequest";
 
 /** */
 const Categories: NextPageWithLayout<any> = () => {
   const { key } = useRouter().query;
-  const { state } = useContext(MainContext);
+  const { state, dispatch } = useContext(MainContext);
 
   const [list, setList] = useState<any>();
 
   useEffect(() => {
     createList();
-  }, [state]);
+  }, [key]);
 
   const createList = () => {
     switch (key) {
@@ -45,12 +46,27 @@ const Categories: NextPageWithLayout<any> = () => {
 
       case "user":
         //users
+        getUsers();
+        break;
+    }
+  };
+
+  const getUsers = () => {
+    if (state?.user.length! <= 7) {
+      getUsersFromDB().then((res) => {
+        console.log("get data");
+
+        dispatch!({
+          type: "GET_USERS",
+          payload: { data: res },
+        });
+
         setList(
-          state?.user.map((item: user, index: number) => {
+          res.map((item: user, index: number) => {
             return <UserCmsCard key={index} value={item} />;
           })
         );
-        break;
+      });
     }
   };
 

@@ -10,16 +10,14 @@ router.get("/", async (req: Request, res: Response) => {
 
 router.get("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
-  const data = await models.article.findById(id);
-  res.status(200).json(data);
+  const article = await models.article.findById(id);
+  const user = await models.user.findById(article.userId);
+  res.status(200).json({ article, user });
 });
 
 router.post("/", (req, res) => {
   models.article
-    .create({
-      ...req.body,
-      userId: "1",
-    })
+    .create(req.body)
     .then((resolve) => {
       res.status(200).send(resolve);
     })

@@ -5,13 +5,20 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
+export interface login {
+  email: string;
+  pass: string;
+}
+
 export interface user {
-  _id: string;
+  _id?: string;
   name: string;
   status: string;
   skills: string;
   bio: string;
   img: string;
+  email?: string;
+  pass?: string;
 }
 export interface work {
   _id: string;

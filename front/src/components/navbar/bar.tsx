@@ -1,19 +1,38 @@
-import { FC, useRef, useState } from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import { faMoon, faSun, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 /** */
 import style from "src/styles/_navbar.module.scss";
 import Link from "next/link";
+import MainContext from "../../context/mainContext";
+import {
+  getLocalStorage,
+  removeLocalStorage,
+  setLocalStorage,
+} from "../../actions/localStorage";
 
 const Bar: FC = () => {
   const circleRef = useRef<HTMLHeadingElement>(null);
+  const { state, dispatch } = useContext(MainContext);
 
-  const [mode, setMode] = useState(true);
+  const [theme, setTheme] = useState(true);
+
+  useEffect(() => {
+    const DarkMode = getLocalStorage("darkMode");
+    switchMode(DarkMode);
+  }, []);
+
+  /** LogoutHandler */
+  const logOutUser = () => {
+    dispatch!({ type: "LOGIN_USER", payload: { data: "" } });
+    removeLocalStorage("token");
+  };
 
   /** DarkMode switch key */
-  const switchMode = () => {
+  const switchMode = (mode: boolean) => {
     const root = document.documentElement;
     if (mode) {
+      setLocalStorage("darkMode", true);
       root.style.setProperty("--bg-color", "#444");
       root.style.setProperty("--primary-color", "#eee");
       root.style.setProperty("--secondary-color", "#aaaa");
@@ -27,7 +46,9 @@ const Bar: FC = () => {
         "--contact-bg",
         "url('https://firebasestorage.googleapis.com/v0/b/online-shop-87fb7.appspot.com/o/category%2F1681729470016?alt=media&token=e4d70854-d6d6-44fd-9984-5173ba9551ce')"
       );
+      setTheme(false);
     } else {
+      removeLocalStorage("darkMode");
       root.style.setProperty("--bg-color", "#fff");
       root.style.setProperty("--primary-color", "#333");
       root.style.setProperty("--secondary-color", "#999");
@@ -41,9 +62,8 @@ const Bar: FC = () => {
         "--contact-bg",
         "url('https://firebasestorage.googleapis.com/v0/b/online-shop-87fb7.appspot.com/o/category%2F1681729410554?alt=media&token=a9cee686-12e9-42d5-87f6-8445614a1f21')"
       );
+      setTheme(true);
     }
-    setMode(!mode);
-
     circleRef.current?.classList.toggle(`${style.darkModeActive}`);
   };
 
@@ -76,14 +96,29 @@ const Bar: FC = () => {
       <div id={style.navMode}>
         {/* <FontAwesomeIcon icon={faSun} /> */}
         <FontAwesomeIcon icon={faMoon} />
-        <div id={style.switch} onClick={switchMode}>
-          <div id={style.switchCircle} ref={circleRef}></div>
+        <div id={style.switch} onClick={() => switchMode(theme)}>
+          <div
+            id={style.switchCircle}
+            className={!theme ? style.darkModeActive : ""}
+            ref={circleRef}
+          ></div>
         </div>
       </div>
-      <Link href="/cms" className={style.loginBtn}>
-        <FontAwesomeIcon icon={faUser} className={style.icon} />
-        <span>Login</span>
-      </Link>
+      {state!.token ? (
+        <>
+          <Link href="/cms" className={style.portalBtn}>
+            <span>managePortal</span>
+          </Link>
+          <span className={style.logoutBtn} onClick={logOutUser}>
+            logOut
+          </span>
+        </>
+      ) : (
+        <Link href="/cms" className={style.loginBtn}>
+          <FontAwesomeIcon icon={faUser} className={style.icon} />
+          <span>Login</span>
+        </Link>
+      )}
     </nav>
   );
 };

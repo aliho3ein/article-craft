@@ -7,11 +7,20 @@ import { useRouter } from "next/router";
 import MainContext from "../../../context/mainContext";
 import { addDataToDB, updateDataInDB } from "../../../actions/apiRequest";
 import { alertMassage } from "../../../actions/alerts";
+import LoginPage from "../../../components/portal/login";
 
 const ArticleForm: NextPageWithLayout = () => {
   const router = useRouter();
   const { ID } = router.query;
   const { state, dispatch } = useContext(MainContext);
+
+  const [input, setInput] = useState({
+    title: "",
+    desc: "",
+    img: "",
+    hashTag: "",
+    userId: "state!.token",
+  });
 
   useEffect(() => {
     ID && getDataForEdit();
@@ -27,15 +36,9 @@ const ArticleForm: NextPageWithLayout = () => {
       desc: data.desc,
       img: data.img,
       hashTag: data.hashTag,
+      userId: data.userId,
     });
   };
-
-  const [input, setInput] = useState({
-    title: "",
-    desc: "",
-    img: "",
-    hashTag: "",
-  });
 
   const submitHandler = (e: any) => {
     e.preventDefault();
@@ -70,45 +73,49 @@ const ArticleForm: NextPageWithLayout = () => {
         <title>articleForm</title>
       </Head>
       <main className={style.formMain}>
-        <form onSubmit={submitHandler}>
-          <input
-            type="input"
-            name="title"
-            placeholder="title"
-            value={input.title}
-            onChange={(e) =>
-              setInput({ ...input, [e.target.name]: e.target.value })
-            }
-          />
-          <textarea
-            name="desc"
-            rows={20}
-            placeholder="description"
-            value={input.desc}
-            onChange={(e) =>
-              setInput({ ...input, [e.target.name]: e.target.value })
-            }
-          ></textarea>
-          <input
-            type="input"
-            name="img"
-            placeholder="image"
-            value={input.img}
-            onChange={(e) =>
-              setInput({ ...input, [e.target.name]: e.target.value })
-            }
-          />
-          <input
-            type="input"
-            name="hashTag"
-            placeholder="Tags : react , node , html etc"
-            value={input.hashTag}
-            onChange={(e) =>
-              setInput({ ...input, [e.target.name]: e.target.value })
-            }
-          />
-          <input type="submit" value="submit" />
-        </form>
+        {state!.token ? (
+          <form className={style.manageForm} onSubmit={submitHandler}>
+            <input
+              type="input"
+              name="title"
+              placeholder="title"
+              value={input.title}
+              onChange={(e) =>
+                setInput({ ...input, [e.target.name]: e.target.value })
+              }
+            />
+            <textarea
+              name="desc"
+              rows={20}
+              placeholder="description"
+              value={input.desc}
+              onChange={(e) =>
+                setInput({ ...input, [e.target.name]: e.target.value })
+              }
+            ></textarea>
+            <input
+              type="input"
+              name="img"
+              placeholder="image"
+              value={input.img}
+              onChange={(e) =>
+                setInput({ ...input, [e.target.name]: e.target.value })
+              }
+            />
+            <input
+              type="input"
+              name="hashTag"
+              placeholder="Tags : react , node , html etc"
+              value={input.hashTag}
+              onChange={(e) =>
+                setInput({ ...input, [e.target.name]: e.target.value })
+              }
+            />
+            <input type="submit" value="submit" />
+          </form>
+        ) : (
+          <LoginPage />
+        )}
       </main>
     </>
   );

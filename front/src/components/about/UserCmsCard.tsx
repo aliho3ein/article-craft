@@ -15,6 +15,7 @@ const UserCmsCard: FC<userType> = ({ value }) => {
   const router = useRouter();
   const { dispatch } = useContext(MainContext);
 
+  /** delete handler */
   const deleteItem = async (e: any) => {
     e.stopPropagation();
 
@@ -28,7 +29,7 @@ const UserCmsCard: FC<userType> = ({ value }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteDataFromDB("user", value._id);
+        deleteDataFromDB("user", value._id!);
         dispatch!({
           type: "DELETE_DATA",
           payload: { category: "user", data: value._id },

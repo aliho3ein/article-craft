@@ -8,16 +8,25 @@ import {
   faLocationDot,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { sendMail } from "../actions/apiRequest";
+import MainContext from "../context/mainContext";
 
 const Contact: NextPageWithLayout = () => {
   const [input, setInput] = useState({ name: "", email: "", massage: "" });
+  const { dispatch } = useContext(MainContext);
 
   const submitMassage = (e: any) => {
     e.preventDefault();
-    sendMail(input);
-    setInput({ name: "", email: "", massage: "" });
+    dispatch!({ type: "LOADING" });
+    sendMail(input)
+      .then(() => {
+        setInput({ name: "", email: "", massage: "" });
+        dispatch!({ type: "LOADING" });
+      })
+      .catch((err) => {
+        dispatch!({ type: "LOADING" });
+      });
   };
 
   return (

@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { addDataToDB, updateDataInDB } from "../../../actions/apiRequest";
 import MainContext from "../../../context/mainContext";
 import { alertMassage } from "../../../actions/alerts";
+import LoginPage from "../../../components/portal/login";
 
 const UserForm: NextPageWithLayout = () => {
   const router = useRouter();
@@ -24,6 +25,8 @@ const UserForm: NextPageWithLayout = () => {
     bio: "",
     skills: "",
     img: "",
+    email: "",
+    pass: "",
   });
 
   const getDataForEdit = () => {
@@ -37,6 +40,8 @@ const UserForm: NextPageWithLayout = () => {
       bio: data.bio,
       skills: data.skills,
       img: data.img,
+      email: data.email,
+      pass: data.pass,
     });
   };
 
@@ -73,54 +78,76 @@ const UserForm: NextPageWithLayout = () => {
         <title>UserForm</title>
       </Head>
       <main className={style.formMain}>
-        <form onSubmit={submitHandler}>
-          <input
-            type="input"
-            name="name"
-            placeholder="name"
-            value={input.name}
-            onChange={(e) =>
-              setInput({ ...input, [e.target.name]: e.target.value })
-            }
-          />
-          <textarea
-            name="bio"
-            rows={20}
-            placeholder="bio"
-            value={input.bio}
-            onChange={(e) =>
-              setInput({ ...input, [e.target.name]: e.target.value })
-            }
-          ></textarea>
-          <input
-            type="input"
-            name="status"
-            placeholder="status"
-            value={input.status}
-            onChange={(e) =>
-              setInput({ ...input, [e.target.name]: e.target.value })
-            }
-          />
-          <input
-            type="input"
-            name="img"
-            placeholder="Image"
-            value={input.img}
-            onChange={(e) =>
-              setInput({ ...input, [e.target.name]: e.target.value })
-            }
-          />
-          <input
-            type="input"
-            name="skills"
-            placeholder="skills : react,next etc"
-            value={input.skills}
-            onChange={(e) =>
-              setInput({ ...input, [e.target.name]: e.target.value })
-            }
-          />
-          <input type="submit" value="submit" />
-        </form>
+        {state!.token ? (
+          <form className={style.manageForm} onSubmit={submitHandler}>
+            <input
+              type="input"
+              name="name"
+              placeholder="name"
+              value={input.name}
+              onChange={(e) =>
+                setInput({ ...input, [e.target.name]: e.target.value })
+              }
+            />
+            <input
+              type="input"
+              name="email"
+              placeholder="Email"
+              value={input.email}
+              onChange={(e) =>
+                setInput({ ...input, [e.target.name]: e.target.value })
+              }
+            />{" "}
+            <input
+              type="password"
+              name="pass"
+              placeholder="Password"
+              value={input.pass}
+              onChange={(e) =>
+                setInput({ ...input, [e.target.name]: e.target.value })
+              }
+            />
+            <textarea
+              name="bio"
+              rows={20}
+              placeholder="bio"
+              value={input.bio}
+              onChange={(e) =>
+                setInput({ ...input, [e.target.name]: e.target.value })
+              }
+            ></textarea>
+            <input
+              type="input"
+              name="status"
+              placeholder="status"
+              value={input.status}
+              onChange={(e) =>
+                setInput({ ...input, [e.target.name]: e.target.value })
+              }
+            />
+            <input
+              type="input"
+              name="img"
+              placeholder="Image"
+              value={input.img}
+              onChange={(e) =>
+                setInput({ ...input, [e.target.name]: e.target.value })
+              }
+            />
+            <input
+              type="input"
+              name="skills"
+              placeholder="skills : react,next etc"
+              value={input.skills}
+              onChange={(e) =>
+                setInput({ ...input, [e.target.name]: e.target.value })
+              }
+            />
+            <input type="submit" value="submit" />
+          </form>
+        ) : (
+          <LoginPage />
+        )}
       </main>
     </>
   );

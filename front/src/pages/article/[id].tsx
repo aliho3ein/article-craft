@@ -19,23 +19,14 @@ import Skill from "../../components/skillCard";
 import { GetServerSideProps } from "next";
 import instance from "../../api/instance";
 import { updateLikeAndView } from "../../actions/apiRequest";
+import { checkLike } from "../../actions/localStorage";
 
 /** */
-const ArticleID: NextPageWithLayout<any> = ({ newArticle }) => {
+const ArticleID: NextPageWithLayout<any> = ({ newArticle, user }) => {
   const { state, dispatch } = useContext(MainContext);
 
   /** get article's ID */
   const { id } = useRouter().query;
-
-  const user = {
-    id: "1",
-    name: "ali",
-    status: "some lorem text etc",
-    skills:
-      "html,css,sass,tailwind,bootstrap,javascript,react,next,node,typescript,mongo,express,jquery",
-    bio: `Hi guys, my name is Ali and I'm a Web Developer. I write articles about what I love and what interests me, the truth is that it's not easy to be motivated when your job is boring. You are tired after work, you go home, you eat with your family, do some stuff on the internet like checking Facebook or playing games but nothing really matters except for work. There are many articles like this but I want to make mine better than others:)`,
-    img: "https://as1.ftcdn.net/v2/jpg/03/05/25/28/1000_F_305252832_jZQnjv3kZd0HfMzUB2BaalhTiZzQo7cN.jpg",
-  };
 
   /** get related articles */
   const hashTg = newArticle?.hashTag.split(",");
@@ -59,6 +50,15 @@ const ArticleID: NextPageWithLayout<any> = ({ newArticle }) => {
     .split(",")
     .map((tag: string, index: number) => <Skill value={tag} key={index} />);
 
+  const likeArticle = () => {
+    const liked = checkLike(newArticle._id);
+    liked && updateLikeAndView("article", "like", newArticle),
+      dispatch!({
+        type: "ADD_LIKE",
+        payload: { category: "article", data: newArticle },
+      });
+  };
+
   return (
     <>
       <Head>
@@ -80,15 +80,7 @@ const ArticleID: NextPageWithLayout<any> = ({ newArticle }) => {
               {newArticle?.view}
               <FontAwesomeIcon className={style.icon} icon={faUser} />
             </span>
-            <span
-              onClick={() => {
-                updateLikeAndView("article", "like", newArticle),
-                  dispatch!({
-                    type: "ADD_LIKE",
-                    payload: { category: "article", data: newArticle },
-                  });
-              }}
-            >
+            <span onClick={likeArticle}>
               {newArticle?.like}
               <FontAwesomeIcon className={style.icon} icon={faHeart} />
             </span>
@@ -138,13 +130,11 @@ ArticleID.getLayout = (page) => <Layout>{page}</Layout>;
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params!;
 
-  const newArticle = await instance.get(`/article/${id}`).then((res) => {
-    return res.data;
+  const props = await instance.get(`/article/${id}`).then((res) => {
+    return { newArticle: res.data.article, user: res.data.user };
   });
 
   return {
-    props: {
-      newArticle,
-    },
+    props,
   };
 };
