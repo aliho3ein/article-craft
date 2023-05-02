@@ -41,6 +41,9 @@ const MainReducer = (state: any, action: reducerAction) => {
         [category!]: [...newList, data].sort(sortById),
       };
 
+    case "PAGE_INDEX":
+      return { ...state, isLoading: false, pageIndex: data };
+
     case "LOADING":
       return { ...state, isLoading: !state.isLoading };
 

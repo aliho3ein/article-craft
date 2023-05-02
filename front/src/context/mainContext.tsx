@@ -9,6 +9,8 @@ const MainContext = createContext<{
     product: [];
     token: string | null;
     isLoading: boolean;
+    pageIndex: number;
+    pageSize: number;
   };
   dispatch?: React.Dispatch<any>;
 }>({});

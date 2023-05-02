@@ -8,6 +8,7 @@ import MainContext from "../../../context/mainContext";
 import { addDataToDB, updateDataInDB } from "../../../actions/apiRequest";
 import { alertMassage } from "../../../actions/alerts";
 import LoginPage from "../../../components/portal/login";
+import TextEditor from "../../../components/textEditor";
 
 const ArticleForm: NextPageWithLayout = () => {
   const router = useRouter();
@@ -84,7 +85,7 @@ const ArticleForm: NextPageWithLayout = () => {
                 setInput({ ...input, [e.target.name]: e.target.value })
               }
             />
-            <textarea
+            {/* <textarea
               name="desc"
               rows={20}
               placeholder="description"
@@ -92,7 +93,8 @@ const ArticleForm: NextPageWithLayout = () => {
               onChange={(e) =>
                 setInput({ ...input, [e.target.name]: e.target.value })
               }
-            ></textarea>
+            ></textarea>*/}
+            <TextEditor onchange={setInput} data={input.desc} />
             <input
               type="input"
               name="img"

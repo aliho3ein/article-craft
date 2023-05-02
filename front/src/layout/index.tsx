@@ -21,6 +21,8 @@ export default function Layout({ children }: props) {
     product: [],
     token: "", // 644d61f17155db731aaf5074
     isLoading: false,
+    pageIndex: 1,
+    pageSize: 12,
   };
 
   const [state, dispatch] = useReducer(MainReducer, initialState);

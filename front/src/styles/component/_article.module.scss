@@ -112,6 +112,11 @@
     justify-content: center;
     gap: 60px;
 
+    .deActive {
+      color: var(--secondary-color);
+      cursor: not-allowed;
+    }
+
     span {
       color: var(--primary-color);
       transition: all 300ms;

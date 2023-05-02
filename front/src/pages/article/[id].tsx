@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Layout from "../../layout";
 import { NextPageWithLayout } from "../../models/interfaces";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import MainContext from "../../context/mainContext";
 /** */
 import style from "src/styles/component/_article.module.scss";
@@ -72,7 +72,7 @@ const ArticleID: NextPageWithLayout<any> = ({ newArticle, user }) => {
             style={{ ["--article-img" as string]: `url(${newArticle?.img})` }}
           ></div>
           <h2>{newArticle?.title}</h2>
-          <p>{newArticle?.desc}</p>
+          <p dangerouslySetInnerHTML={{ __html: newArticle?.desc }}></p>
           <div className={style.tags}>Tags : {tags}</div>
           <div className={style.info}>
             <span>{newArticle?.date}</span>

@@ -136,3 +136,29 @@ main {
     }
   }
 }
+
+/** text Editor */
+.ck-editor {
+  height: 500px !important;
+  width: 80%;
+
+  .ck-toolbar__items {
+    width: 500px !important;
+    padding-block: 10px !important;
+    overflow-x: scroll !important;
+  }
+
+  .ck-editor__main {
+    .ck-editor__editable {
+      height: 460px;
+      min-width: 280px !important;
+      overflow: scroll;
+      margin-inline: auto;
+    }
+  }
+}
+
+/** */
+.navActive {
+  border: 1px solid var(--secondary-color) !important;
+}

@@ -31,7 +31,7 @@
   ul {
     display: flex;
     list-style: none;
-    gap: 50px;
+    gap: 40px;
     font-size: 1.1rem;
 
     a {
@@ -44,16 +44,12 @@
 
     li {
       cursor: pointer;
-      padding: 5px;
-      border-bottom: 1px solid transparent;
+      padding: 4px 8px;
+      border: 1px solid transparent;
 
       &:hover {
-        border-color: var(--secondary-color);
+        border-bottom-color: var(--secondary-color);
       }
-    }
-
-    .navActive {
-      border: 1px solid var(--secondary-color);
     }
   }
 
@@ -133,11 +129,14 @@
     all: unset;
     margin-right: 50px;
     cursor: pointer;
-    padding: 5px;
-    border-bottom: 1px solid transparent;
 
-    &:hover {
-      border-color: var(--secondary-color);
+    span {
+      padding: 5px;
+      border-bottom: 1px solid transparent;
+
+      &:hover {
+        border-color: var(--secondary-color);
+      }
     }
   }
 
