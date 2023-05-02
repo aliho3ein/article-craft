@@ -54,7 +54,7 @@ const ArticleCard: FC<articleType> = ({ value }) => {
       <div className={style.articlePreInfo}>
         <h2> {value.title.slice(0, 30)} </h2>
         <p>
-          {value.desc.slice(0, 75)} ...{" "}
+          {value.desc.slice(3, 75)} ...{" "}
           <Link
             href={`/article/${value._id}`}
             title={`${value.desc.slice(75, 150)} ...`}

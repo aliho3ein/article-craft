@@ -12,6 +12,7 @@ import {
 } from "../../actions/localStorage";
 
 const Bar: FC = () => {
+  const navRef = useRef<HTMLUListElement>(null);
   const circleRef = useRef<HTMLHeadingElement>(null);
   const { state, dispatch } = useContext(MainContext);
 
@@ -67,23 +68,29 @@ const Bar: FC = () => {
     circleRef.current?.classList.toggle(`${style.darkModeActive}`);
   };
 
+  /** activeNav */
+  const activeLink = (e: any) => {
+    navRef.current!.querySelector(".navActive")?.classList.remove("navActive");
+    e.currentTarget.children[0].classList.add("navActive");
+  };
+
   return (
-    <nav id={style.nav}>
+    <nav id={style.nav} ref={navRef}>
       <ul>
-        <Link href="/">
+        <Link href="/" onClick={activeLink}>
           <li>aboutMe</li>
         </Link>
-        <Link href="/article">
+        <Link href="/article" onClick={activeLink}>
           <li>myArticle</li>
         </Link>
-        <Link href="/shop">
+        <Link href="/shop" onClick={activeLink}>
           <li>shopCenter</li>
         </Link>
-        <Link href="/work">
+        <Link href="/work" onClick={activeLink}>
           <li>myWork</li>
         </Link>
 
-        <Link href="/contact">
+        <Link href="/contact" onClick={activeLink}>
           <li>contactMe</li>
         </Link>
       </ul>
@@ -106,7 +113,7 @@ const Bar: FC = () => {
       </div>
       {state!.token ? (
         <>
-          <Link href="/cms" className={style.portalBtn}>
+          <Link href="/cms" onClick={activeLink} className={style.portalBtn}>
             <span>managePortal</span>
           </Link>
           <span className={style.logoutBtn} onClick={logOutUser}>
