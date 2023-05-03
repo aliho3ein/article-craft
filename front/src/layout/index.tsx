@@ -19,8 +19,8 @@ export default function Layout({ children }: props) {
     work: [],
     user: [],
     product: [],
-    token: "", // 644d61f17155db731aaf5074
-    isLoading: false,
+    token: "644d61f17155db731aaf5074", // 644d61f17155db731aaf5074
+    isLoading: true,
     pageIndex: 1,
     pageSize: 12,
   };
@@ -31,17 +31,23 @@ export default function Layout({ children }: props) {
     getDataFromDB();
     const token = getLocalStorage("token");
     token && logUserIn(token);
-    console.log("fetch");
+    console.log("layout");
   }, []);
 
   const getDataFromDB = () => {
-    dispatch({ type: "LOADING" });
-    instance
+    // dispatch({ type: "LOADING" });
+    /* instance
       .get("")
       .then((res) => {
-        dispatch({ type: "", payload: { data: res.data } });
+        res.status === 200 &&
+          dispatch({ type: "GET_ALL_DATA", payload: { data: res.data } });
+        dispatch({ type: "LOADING", payload: { data: false } });
+
+        setTimeout(() => {
+          console.log(res);
+        }, 30000);
       })
-      .catch((err) => console.log("error on layout"));
+      .catch((err) => console.log("error on layout"));*/
   };
 
   const logUserIn = (id: string) => {
@@ -54,7 +60,7 @@ export default function Layout({ children }: props) {
     <>
       <MainContext.Provider value={{ state, dispatch }}>
         <Navbar />
-        {state.isLoading && <LoadingComponent />}
+        {/* {state.isLoading && <LoadingComponent />} */}
         {children}
         <Footer />
       </MainContext.Provider>

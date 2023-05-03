@@ -1,7 +1,10 @@
 import mongoose, { Schema } from "mongoose";
 
 const connect = () => {
-  return mongoose.connect("mongodb://localhost:27017/articleCraft");
+  // return mongoose.connect("mongodb://localhost:27017/articleCraft");
+  return mongoose.connect(
+    "mongodb+srv://aliho3einde:RGaJ1Kl6TaWsszBd@cluster01.djlpk33.mongodb.net/?retryWrites=true&w=majority"
+  );
 };
 
 connect();

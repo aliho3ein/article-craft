@@ -1,17 +1,41 @@
 import Head from "next/head";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import WorkCard from "../components/work/workCard";
 import MainContext from "../context/mainContext";
 import Layout from "../layout";
-import { NextPageWithLayout } from "../models/interfaces";
+import { NextPageWithLayout, work } from "../models/interfaces";
 import style from "src/styles/component/_work.module.scss";
+import { getWorksFromDB } from "../actions/apiRequest";
 
 const Work: NextPageWithLayout = () => {
-  const { state } = useContext(MainContext);
+  const { state, dispatch } = useContext(MainContext);
 
-  const workList = state!.work.map((item, index) => (
-    <WorkCard value={item} index={index} key={index} />
-  ));
+  useEffect(() => {
+    getWorks();
+    console.log("fetch in workPage");
+  }, []);
+
+  const [workList, setList] = useState<any>([]);
+
+  const getWorks = async () => {
+    state!.work.length <= 1
+      ? await getWorksFromDB().then((res: work[]) => {
+          dispatch!({
+            type: "GET_DATA",
+            payload: { category: "work", data: res },
+          });
+          setList(
+            res.map((item, index) => (
+              <WorkCard value={item} index={index} key={index} />
+            ))
+          );
+        })
+      : setList(
+          state!.work.map((item, index) => (
+            <WorkCard value={item} index={index} key={index} />
+          ))
+        );
+  };
 
   return (
     <>
