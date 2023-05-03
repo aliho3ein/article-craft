@@ -8,7 +8,6 @@ import workPage from "./pages/work";
 import shopPage from "./pages/shop";
 import contactPage from "./pages/contact";
 import userPage from "./pages/user";
-import index from "./pages";
 
 /** body-parser */
 import bodyParser from "body-parser";
@@ -24,9 +23,8 @@ app.use("/articleCraft/api/shop", shopPage);
 app.use("/articleCraft/api/work", workPage);
 app.use("/articleCraft/api/contact", contactPage);
 app.use("/articleCraft/api/user", userPage);
-app.use("/articleCraft/api", index);
 
 /** Listener */
-app.listen(5002, () => {
-  console.log("Server listening on port 5002");
+app.listen(5003, () => {
+  console.log("Server listening on port 5003");
 });

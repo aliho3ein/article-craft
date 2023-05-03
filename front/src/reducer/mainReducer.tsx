@@ -14,11 +14,11 @@ const MainReducer = (state: any, action: reducerAction) => {
   let newList;
 
   switch (action.type) {
+    case "GET_DATA":
+      return { ...state, [category!]: data.sort(sortById), isLoading: false };
+
     case "ADD_DATA":
       return { ...state, [category!]: [...state[category!], data] };
-
-    case "GET_USERS":
-      return { ...state, user: data };
 
     case "UPDATE_DATA":
       newList = state[category!].filter((item: any) => item._id !== data._id);
@@ -27,9 +27,6 @@ const MainReducer = (state: any, action: reducerAction) => {
     case "DELETE_DATA":
       newList = state[category!].filter((item: any) => item._id !== data);
       return { ...state, [category!]: newList };
-
-    case "SORT_ARTICLE":
-      return { ...state, article: state.article.sort(sortById) };
 
     case "LOGIN_USER":
       return { ...state, token: data, isLoading: false };
@@ -46,16 +43,6 @@ const MainReducer = (state: any, action: reducerAction) => {
 
     case "LOADING":
       return { ...state, isLoading: !state.isLoading };
-
-    default:
-      // fetch DATA
-      return {
-        ...state,
-        ...data,
-        work: data.work.sort(sortById),
-        article: data.article.sort(sortById),
-        isLoading: false,
-      };
   }
 };
 

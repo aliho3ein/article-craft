@@ -6,6 +6,14 @@ router.get("/", (req: Request, res: Response) => {
   models.user.find({}).then((resolve) => res.status(200).json(resolve));
 });
 
+router.get("/info", (req: Request, res: Response) => {
+  const projection = { name: 1, img: 1, bio: 1, skills: 1, status: 1, _id: 0 }; // Include only name and email fields, exclude _id
+
+  models.user.find({}, projection).then((resolve) => {
+    res.send(resolve);
+  });
+});
+
 router.post("/", (req: Request, res: Response) => {
   models.user
     .create(req.body)

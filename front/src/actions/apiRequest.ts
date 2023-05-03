@@ -40,12 +40,26 @@ export const deleteDataFromDB = (category: string, id: string) => {
 };
 
 /************************************GET USERS */
+export const getUsersInfoFromDB = async () => {
+  return instance.get("/user/info").then((res) => Promise.resolve(res.data));
+};
+
 export const getUsersFromDB = async () => {
   return instance.get("/user").then((res) => Promise.resolve(res.data));
 };
 
+/**************************************GET ARTICLES */
+export const getArticlesFromDB = async () => {
+  return instance.get("/article").then((res) => Promise.resolve(res.data));
+};
+
+/***************************************GET USERS */
+export const getWorksFromDB = async () => {
+  return instance.get("/work").then((res) => Promise.resolve(res.data));
+};
+
 /***********************************CONTACT */
-export const sendMail = (data: object) => {
+export const sendMail = async (data: object) => {
   return instance
     .post("/contact", data)
     .then((res) => {

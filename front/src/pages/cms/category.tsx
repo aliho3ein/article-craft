@@ -13,7 +13,11 @@ import {
   user,
 } from "../../models/interfaces";
 import MainContext from "../../context/mainContext";
-import { getUsersFromDB } from "../../actions/apiRequest";
+import {
+  getArticlesFromDB,
+  getUsersFromDB,
+  getWorksFromDB,
+} from "../../actions/apiRequest";
 
 /** */
 const Categories: NextPageWithLayout<any> = () => {
@@ -29,19 +33,11 @@ const Categories: NextPageWithLayout<any> = () => {
   const createList = () => {
     switch (key) {
       case "article":
-        setList(
-          state!.article.map((item: article, index: number) => {
-            return <ArtCmsCard key={index} value={item} />;
-          })
-        );
+        getArticles();
         break;
 
       case "work":
-        setList(
-          state?.work.map((item: work, index: number) => {
-            return <WorkCmsCard key={index} value={item} />;
-          })
-        );
+        getWorks();
         break;
 
       case "user":
@@ -51,14 +47,56 @@ const Categories: NextPageWithLayout<any> = () => {
     }
   };
 
-  const getUsers = () => {
+  const getArticles = async () => {
+    state!.article.length <= 0
+      ? await getArticlesFromDB().then((res) => {
+          dispatch!({
+            type: "GET_DATA",
+            payload: { category: "article", data: res },
+          });
+          setList(
+            res.map((item: article, index: number) => {
+              return <ArtCmsCard key={index} value={item} />;
+            })
+          );
+        })
+      : setList(
+          state!.article.map((item: article, index: number) => {
+            return <ArtCmsCard key={index} value={item} />;
+          })
+        );
+  };
+
+  const getWorks = async () => {
+    console.log(state?.work);
+
+    state!.work.length <= 1
+      ? await getWorksFromDB().then((res) => {
+          dispatch!({
+            type: "GET_DATA",
+            payload: { category: "work", data: res },
+          });
+          setList(
+            res.map((item: work, index: number) => {
+              return <WorkCmsCard key={index} value={item} />;
+            })
+          );
+        })
+      : setList(
+          state!.work.map((item: work, index: number) => {
+            return <WorkCmsCard key={index} value={item} />;
+          })
+        );
+  };
+
+  const getUsers = async () => {
     if (state?.user.length! <= 7) {
       getUsersFromDB().then((res) => {
         console.log("get data");
 
         dispatch!({
-          type: "GET_USERS",
-          payload: { data: res },
+          type: "GET_DATA",
+          payload: { category: "user", data: res },
         });
 
         setList(

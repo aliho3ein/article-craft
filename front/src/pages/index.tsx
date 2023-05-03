@@ -3,14 +3,23 @@ import { NextPageWithLayout } from "../models/interfaces";
 import Layout from "../layout";
 import style from "src/styles/component/_about.module.scss";
 import Header from "../components/header/header";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import AboutText from "../components/about/aboutText";
 import { useContext } from "react";
 import MainContext from "../context/mainContext";
+import { getUsersInfoFromDB } from "../actions/apiRequest";
+import LoadingComponent from "../components/loading";
 
 /** ABOUT/HOME **/
 const Home: NextPageWithLayout = () => {
-  const { state } = useContext(MainContext);
+  const { state, dispatch } = useContext(MainContext);
+
+  useEffect(() => {
+    console.log("request to server from HomePage");
+    getUsersInfoFromDB().then((res) => {
+      dispatch!({ type: "GET_DATA", payload: { category: "user", data: res } });
+    });
+  }, [!state?.isLoading]);
 
   const aboutRef = useRef<HTMLHeadingElement>(null);
 
@@ -24,9 +33,13 @@ const Home: NextPageWithLayout = () => {
         <title>aboutMe</title>
       </Head>
       <Header />
-      <main className={style.aboutMain} ref={aboutRef}>
-        {result}
-      </main>
+      {state!.isLoading ? (
+        <LoadingComponent />
+      ) : (
+        <main className={style.aboutMain} ref={aboutRef}>
+          {result}
+        </main>
+      )}
     </>
   );
 };
